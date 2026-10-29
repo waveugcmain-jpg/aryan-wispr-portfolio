@@ -94,8 +94,19 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } }
 
 /* Centered composition: the book owns the frame; cards float independently. */
+.letter { font:400 20px/1.48 var(--font-display); max-width:460px; margin:auto; }
+.letter h1 { font:400 30px/1.1 var(--font-display); margin:0 0 25px; }
+.letter p { margin:0 0 17px; }
+.letter h2 { font:italic 400 22px/1.3 var(--font-display); color:#86352e; margin:30px 0 13px; }
+.letter mark { background:#e7ddf2; color:inherit; padding:0 2px; }
+.letter-proof { color:#86352e; }
+.letter .letter-signature { font-style:italic; font-size:28px; margin:28px 0 18px; }
+.letter-credit { font:9px/1.5 var(--font-mono); color:#686358; letter-spacing:.5px; }
+.page--letter { padding:55px 48px 65px; }
+.notebook { background-color:#963d32; border-color:#7f3029; }
+.page--contents > .eyebrow { position:sticky; top:24px; }
 .journal-stage { position:relative; width:min(1220px,calc(100% - 96px)); margin:clamp(190px,16.5vw,240px) auto 0; perspective:1800px; padding-bottom:35px; }
-.notebook { min-height:590px; border-bottom-width:6px; box-shadow:0 6px 0 #15352d,0 10px 0 #102d25,0 28px 28px -10px #30261866,inset 0 0 0 3px #ffffff16; }
+.notebook { min-height:590px; border-bottom-width:6px; box-shadow:0 6px 0 #7f3029,0 10px 0 #64261f,0 28px 28px -10px #30261866,inset 0 0 0 3px #ffffff16; }
 .page--letter { box-shadow:inset -22px 0 28px -23px #66583ba6,-1px 3px 0 #e2dacb,-2px 6px 0 #cec6b7; }
 .page--contents { box-shadow:inset 22px 0 28px -23px #66583ba6,1px 3px 0 #e2dacb,2px 6px 0 #cec6b7; }
 .personal-details { position:fixed; inset:0; z-index:50; pointer-events:none; }

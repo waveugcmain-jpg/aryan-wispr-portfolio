@@ -1,6 +1,7 @@
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
 import { useRef, useEffect } from 'react';
 import '@fontsource/newsreader/latin-400.css';
+import '@fontsource/newsreader/latin-400-italic.css';
 import '@fontsource/manrope/latin-400.css';
 import '@fontsource/manrope/latin-500.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
@@ -91,7 +92,29 @@ export function App() {
     <div className="journal-stage">
       <article className="notebook" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
-          <div className="introduction"><h1>Aryan<span className="name-underline" aria-hidden="true" /></h1><p>[Your introduction]</p></div>
+          <div className="letter">
+            <h1>hi,</h1>
+            <p>you’ve probably opened a few hundred of these this week. and i know they all say the same things.</p>
+            <p>obsessed with growth. huge fan of the product. and my favourite, “extremely high agency.”</p>
+            <p>i want to do this a little differently.</p>
+            <p>you’re on a train now. breathe in. grab a coffee. hit play on the music.</p>
+            <p>i’ll answer the only questions that matter. it’ll take exactly <mark>180 seconds.</mark></p>
+            <p>let’s begin.</p>
+            <h2>has aryan actually owned a growth channel before?</h2>
+            <p>yes. i run <mark>wave.</mark> we build creator armies: creators posting about one product every single day until it goes viral. the same playbook you run with ugc in the us. right now we’re running it for linkrunner, backed by titan capital and 2am vc. before wave, i wrote <mark>200+ winning ads</mark> at zyra for adani, meesho, country delight and more.</p>
+            <h2>is aryan (insert buzzword here) high agency?</h2>
+            <p>i’ve started two companies. nobody handed me either one. when it’s yours, there’s no one to escalate to.</p>
+            <h2>is aryan full of crap?</h2>
+            <p>i hope you don’t think this :(</p>
+            <p>but no. for this challenge i actually signed creators, negotiated with them, made <mark>4 ads for wispr flow</mark> and ran them as trial reels on instagram. real strangers, real views. <span className="letter-proof">[see the numbers →]</span></p>
+            <h2>is aryan smart? creative?</h2>
+            <p>my mom says i’m smart. and i failed art class.</p>
+            <p>so you’ll have to judge that one yourself. you’re holding the evidence.</p>
+            <p>ok. that’s it.</p>
+            <p>the rest of this notebook is the proof. short on time? ask me anything in the bar below. say it out loud. you know how.</p>
+            <p className="letter-signature">— aryan</p>
+            <span className="letter-credit">written with Wispr Flow</span>
+          </div>
           <span className="page-number" aria-hidden="true">01</span>
         </section>
         <section className="page page--contents" aria-labelledby="contents-title">
