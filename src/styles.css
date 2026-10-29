@@ -211,12 +211,11 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
  .ask-preview { margin-bottom:24px; }
  .opening-cover__front { justify-content:flex-start; padding-top:130px; }
 }
-@media(prefers-reduced-motion:reduce) {
- .notebook,.page--letter,.page--contents,.binding,.journal-stage > .folder-stack { animation:none; }
- .opening-cover { display:none; animation:none; }
-}
 
 .opening-cover__front { transform:translateZ(1px); } .opening-cover__back { transform:rotateY(180deg) translateZ(1px); }
 
 
 
+
+
+.opening-cover__front { justify-content:flex-start; padding-top:110px; }

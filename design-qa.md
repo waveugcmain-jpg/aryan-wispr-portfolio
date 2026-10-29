@@ -18,3 +18,5 @@ Verified rendered layouts at 1440, 768, and 375px; no horizontal overflow. Deskt
 Opening animation: inspected midpoint and final frame. Fixed backface mirroring caused by opacity flattening the 3D cover. Browser reduced-motion preference correctly disables the entrance. Removed temporary paused-frame inspection styles.
 
 Timing refinement: all entrance tracks share 1000ms delay and 2800ms duration with backwards fill, so the closed state holds during the delay. Removed the old internal 12% hold. Reduced-motion override retained.
+
+Verified in preview: cover-open is active with 1s delay, initial identity transform and final 180-degree rotation; cover becomes hidden and letter opacity reaches 1. Removed the fade override per explicit user direction.

@@ -15,3 +15,5 @@ Keep navigation as dossier tabs above the red notebook. The complete user-provid
 Ask bar sits above tabs. On load the red cover opens over 1.8 seconds; reduced-motion opens immediately.
 
 Opening timing: automatic one-second closed hold, followed by a slow 2.8-second opening. No click or scroll trigger.
+
+User explicitly requests the physical right-to-left hinge in this preview, replacing the reduced-motion fade. Keep the one-second hold and slow cover rotation.
