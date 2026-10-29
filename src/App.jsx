@@ -90,6 +90,10 @@ export function App() {
     <TrainScene />
     <PersonalDetails />
     <div className="journal-stage">
+      <div className="ask-preview" aria-label="Ask Aryan — design preview">
+        <div className="ask-input"><input aria-label="Ask Aryan any question — preview only" placeholder="Ask Aryan any question." readOnly /><button type="button" disabled aria-label="Microphone — coming later"><Microphone size={21} weight="light" /></button><button className="ask-send" type="button" disabled aria-label="Send — coming later"><ArrowUp size={22} weight="light" /></button></div>
+        <div className="ask-chips">{['Top skills?', 'Best project?', 'Why Wispr Flow?'].map(q=><button key={q} type="button" disabled>{q}</button>)}</div>
+      </div>
       <FolderNavigation />
       <article className="notebook" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
@@ -126,16 +130,14 @@ export function App() {
           <span className="page-number" aria-hidden="true">02</span>
         </section>
         <Rings />
+        <div className="opening-cover" aria-hidden="true"><div className="opening-cover__front"><span>THE PASSENGER’S JOURNAL</span><small>Aryan · A letter & a little proof</small></div><div className="opening-cover__back" /></div>
       </article>
       <nav className="page-controls" aria-label="Page navigation — preview only">
         <button type="button" aria-disabled="true"><ArrowLeft size={18} weight="light" aria-hidden="true" /> Previous Page</button>
         <span className="page-controls__divider" aria-hidden="true" />
         <button type="button" aria-disabled="true">Next Page <ArrowRight size={18} weight="light" aria-hidden="true" /></button>
       </nav>
-      <div className="ask-preview" aria-label="Ask Aryan — design preview">
-        <div className="ask-input"><input aria-label="Ask Aryan any question — preview only" placeholder="Ask Aryan any question." readOnly /><button type="button" disabled aria-label="Microphone — coming later"><Microphone size={21} weight="light" /></button><button className="ask-send" type="button" disabled aria-label="Send — coming later"><ArrowUp size={22} weight="light" /></button></div>
-        <div className="ask-chips">{['Top skills?', 'Best project?', 'Why Wispr Flow?'].map(q=><button key={q} type="button" disabled>{q}</button>)}</div>
-      </div>
+
     </div>
   </main>;
 }

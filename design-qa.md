@@ -14,3 +14,5 @@ Final follow-up: source board (1536x1024) and desktop implementation (1440 CSS w
 
 ## Two-page letter update
 Verified rendered layouts at 1440, 768, and 375px; no horizontal overflow. Desktop/tablet use two pages, phones stack. All three rendered images loaded successfully. Dossier navigation sits above the cover. Ask input is read-only; mic, submit and chips disabled. Production build checked. Desktop evidence: qa/letter-spread-desktop.jpg.
+
+Opening animation: inspected midpoint and final frame. Fixed backface mirroring caused by opacity flattening the 3D cover. Browser reduced-motion preference correctly disables the entrance. Removed temporary paused-frame inspection styles.
