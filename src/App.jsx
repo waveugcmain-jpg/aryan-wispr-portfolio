@@ -1,4 +1,4 @@
-import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
+import { ArrowLeft, ArrowRight, ArrowUp, Microphone } from '@phosphor-icons/react';
 import { useRef, useEffect } from 'react';
 import '@fontsource/newsreader/latin-400.css';
 import '@fontsource/newsreader/latin-400-italic.css';
@@ -90,6 +90,7 @@ export function App() {
     <TrainScene />
     <PersonalDetails />
     <div className="journal-stage">
+      <FolderNavigation />
       <article className="notebook" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
           <div className="letter">
@@ -102,6 +103,12 @@ export function App() {
             <p>let’s begin.</p>
             <h2>has aryan actually owned a growth channel before?</h2>
             <p>yes. i run <mark>wave.</mark> we build creator armies: creators posting about one product every single day until it goes viral. the same playbook you run with ugc in the us. right now we’re running it for linkrunner, backed by titan capital and 2am vc. before wave, i wrote <mark>200+ winning ads</mark> at zyra for adani, meesho, country delight and more.</p>
+          </div>
+          <img className="letter-illustration" src="/assets/alpine-sketch.webp" alt="" />
+          <span className="page-number" aria-hidden="true">01</span>
+        </section>
+        <section className="page page--contents" aria-label="Letter, continued">
+          <div className="letter">
             <h2>is aryan (insert buzzword here) high agency?</h2>
             <p>i’ve started two companies. nobody handed me either one. when it’s yours, there’s no one to escalate to.</p>
             <h2>is aryan full of crap?</h2>
@@ -115,11 +122,7 @@ export function App() {
             <p className="letter-signature">— aryan</p>
             <span className="letter-credit">written with Wispr Flow</span>
           </div>
-          <span className="page-number" aria-hidden="true">01</span>
-        </section>
-        <section className="page page--contents" aria-labelledby="contents-title">
-          <h2 id="contents-title" className="eyebrow">IN THIS NOTEBOOK</h2>
-          <FolderNavigation />
+          <img className="coffee-illustration" src="/assets/coffee-sketch.webp" alt="" />
           <span className="page-number" aria-hidden="true">02</span>
         </section>
         <Rings />
@@ -129,6 +132,10 @@ export function App() {
         <span className="page-controls__divider" aria-hidden="true" />
         <button type="button" aria-disabled="true">Next Page <ArrowRight size={18} weight="light" aria-hidden="true" /></button>
       </nav>
+      <div className="ask-preview" aria-label="Ask Aryan — design preview">
+        <div className="ask-input"><input aria-label="Ask Aryan any question — preview only" placeholder="Ask Aryan any question." readOnly /><button type="button" disabled aria-label="Microphone — coming later"><Microphone size={21} weight="light" /></button><button className="ask-send" type="button" disabled aria-label="Send — coming later"><ArrowUp size={22} weight="light" /></button></div>
+        <div className="ask-chips">{['Top skills?', 'Best project?', 'Why Wispr Flow?'].map(q=><button key={q} type="button" disabled>{q}</button>)}</div>
+      </div>
     </div>
   </main>;
 }

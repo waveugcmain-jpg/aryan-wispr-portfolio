@@ -67,7 +67,7 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
   .folder__title { font-size:14px; letter-spacing:-.3px; }
   .eyebrow { font-size:9px; letter-spacing:1.5px; }
 }
-@media (max-width:600px) {
+@media (max-width:700px) {
   .scene__frame { width:1000px; }
   .scene { background-size:1000px auto; }
   .journal-stage { width:calc(100% - 32px); margin-top:164px; padding-bottom:24px; }
@@ -94,6 +94,24 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } }
 
 /* Centered composition: the book owns the frame; cards float independently. */
+.journal-stage > .folder-stack { height:58px; display:flex; align-items:end; gap:7px; margin:0 23px -8px; z-index:1; }
+.journal-stage > .folder-stack .folder { position:relative; inset:auto; flex:1; min-width:0; height:62px; transform:none; filter:drop-shadow(0 -2px 2px #43251b26); }
+.journal-stage > .folder-stack .folder__face { inset:0; clip-path:polygon(0 100%,0 9px,8px 0,88% 0,100% 15px,100% 100%); border-radius:5px 5px 0 0; }
+.journal-stage > .folder-stack .folder__tab { display:none; }
+.journal-stage > .folder-stack .folder__label { padding:19px 14px; gap:10px; }
+.journal-stage > .folder-stack .folder__title { font-size:12px; }
+.journal-stage > .folder-stack .folder::after { display:none; }
+.journal-stage > .folder-stack .folder:hover { transform:translateY(-5px); }
+.notebook { z-index:2; }
+.letter-illustration { display:block; width:100%; max-width:380px; height:150px; object-fit:cover; margin:12px auto 0; opacity:.85; }
+.ask-preview { max-width:760px; margin:20px auto 0; }
+.ask-input { display:flex; align-items:center; gap:12px; padding:10px 13px 10px 25px; border-radius:40px; background:#faf8f2; box-shadow:0 5px 24px #44382726; }
+.ask-input input { flex:1; min-width:0; background:none; border:0; outline:none; font:400 16px var(--font-body); color:var(--ink); padding:8px 0; }
+.ask-input input:focus-visible { outline:2px solid #86779f; outline-offset:4px; border-radius:4px; }
+.ask-input button { display:grid; place-items:center; border:0; background:none; color:var(--ink); padding:8px; opacity:1; }
+.ask-input .ask-send { background:var(--lavender); border-radius:50%; width:43px; height:43px; }
+.ask-chips { display:flex; justify-content:center; gap:10px; margin-top:13px; }
+.ask-chips button { border:1px solid #fff7; background:#f5f1e8df; color:var(--ink); opacity:1; border-radius:24px; padding:9px 18px; font-size:12px; }
 .letter { font:400 20px/1.48 var(--font-display); max-width:460px; margin:auto; }
 .letter h1 { font:400 30px/1.1 var(--font-display); margin:0 0 25px; }
 .letter p { margin:0 0 17px; }
@@ -126,7 +144,20 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
  .photo-placeholder { height:90px; }
  .paper-slip { width:105px; height:140px; top:40px; left:36px; }
 }
-@media(max-width:600px) {
+@media(max-width:700px) {
+ .journal-stage > .folder-stack { display:grid; grid-template-columns:repeat(3,1fr); gap:5px; height:auto; margin:0 9px -6px; }
+ .journal-stage > .folder-stack .folder { height:52px; }
+ .journal-stage > .folder-stack .folder__label { padding:12px 8px; gap:5px; }
+ .journal-stage > .folder-stack .folder__title { font-size:10px; line-height:1.3; }
+ .journal-stage > .folder-stack .folder__number { font-size:8px; }
+ .letter { font-size:18px; line-height:1.5; }
+ .letter h2 { font-size:21px; }
+ .page--letter { padding:35px 28px 28px; }
+ .page--contents { padding:30px 28px 55px; }
+ .ask-input { padding-left:17px; gap:4px; }
+ .ask-input input { font-size:13px; }
+ .ask-chips { gap:6px; }
+ .ask-chips button { font-size:10px; padding:8px 11px; }
  .journal-stage { width:calc(100% - 28px); margin:210px auto 0; }
  .notebook { min-height:0; }
  .photo-card { top:44px; left:24px; width:96px; }
@@ -138,3 +169,21 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
  .page--contents { box-shadow:0 4px 0 #e0d8c8,0 7px 0 #cfc5b2; }
 }
 
+
+/* Balanced letter spread and quiet illustrations. */
+.page--contents { padding:55px 48px 65px; }
+.page--contents .letter > h2:first-child { margin-top:0; }
+.coffee-illustration { display:block; width:170px; height:140px; object-fit:contain; margin:15px 0 0 auto; }
+.photo-card { top:55px; }
+.paper-slip { top:40px; }
+@media(min-width:701px) and (max-width:1050px) {
+ .page--letter,.page--contents { padding:36px 28px 55px; }
+ .letter { font-size:18px; }
+ .journal-stage > .folder-stack .folder__label { padding:15px 8px; gap:5px; }
+ .journal-stage > .folder-stack .folder__title { font-size:10px; }
+}
+@media(max-width:700px) {
+ .page--contents { padding:30px 28px 55px; }
+ .photo-card { top:44px; }
+ .paper-slip { top:32px; }
+}
