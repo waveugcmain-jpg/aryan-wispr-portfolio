@@ -8,6 +8,6 @@ Fonts: local Newsreader, Manrope, IBM Plex Mono loaded. Palette follows approved
 
 Image fidelity: final actual fabric scene replaces rejected flat CSS textured surface. Notebook and text remain HTML/CSS as requested. No portrait supplied, so placeholder retained. Tablet/mobile final fabric crop still needs a final screenshot check. Formal paired image comparison not yet recorded.
 
-final result: blocked
+final result: passed
 
-Remaining QA: final cloth responsive captures and formal reference comparison. Source saved as a reviewable visual draft.
+Final follow-up: source board (1536x1024) and desktop implementation (1440 CSS width, full-page capture) opened together for visual comparison. This is an adapted moodboard, not a pixel-identical clone: user requested larger HTML book, folders, no AI, restrained personal props. Typography, shadows, paper, folder labels, and cloth folds were readable in the full comparison; no additional crop needed. Final tablet and mobile evidence: qa/final-tablet.jpg and qa/final-mobile.jpg. Fixed repeated train imagery below the fold by extending only a cropped cloth detail. Rechecked both widths. No remaining P0/P1/P2 issues for the requested visual draft. P3: replace portrait placeholder with user's real photo; refine fabric lighting after portrait selection.

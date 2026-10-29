@@ -12,7 +12,7 @@ body { margin:0; min-width:320px; background:#c5a47b; }
 button { font:inherit; -webkit-tap-highlight-color:transparent; }
 button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 .home { position:relative; min-height:100svh; overflow:hidden; isolation:isolate; }
-.scene { position:absolute; inset:0; z-index:-1; overflow:hidden; background:#e5d9c5 url('/assets/train-cloth.webp') center bottom / max(100%,1152px) auto no-repeat; }
+.scene { position:absolute; inset:0; z-index:-1; overflow:hidden; background:#e5d9c5 url('/assets/cloth-detail.webp') center bottom / max(100%,1152px) auto repeat-y; }
 .scene__frame { position:absolute; top:0; left:50%; width:max(100%,1152px); aspect-ratio:3/2; transform:translateX(-50%); mask-image:linear-gradient(#000 83%,transparent); }
 .scene__interior { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 /* Original mountain view, independently layered for future parallax. */
