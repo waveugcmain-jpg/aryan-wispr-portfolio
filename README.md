@@ -15,4 +15,4 @@ Build: `corepack pnpm build`.
 - `public/assets/`: source train image, generated cloth scene and paper texture.
 - `qa/`: review screenshots (earlier captures may show earlier iterations).
 
-Personal copy and portrait remain clearly marked placeholders. Photo card supports pointer dragging and arrow-key movement when focused. Generated cloth background uses the supplied moodboard and train scene as references; produced with built-in ImageGen. Do not replace the cloth with a flat textured CSS panel.
+Personal copy and portrait remain clearly marked placeholders. Both cards support pointer dragging and arrow-key movement across the viewport. Current background is the clear train and bare wooden table; draped fabric was removed at the user's request. The landscape remains independently layered for later motion.

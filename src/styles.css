@@ -12,11 +12,11 @@ body { margin:0; min-width:320px; background:#c5a47b; }
 button { font:inherit; -webkit-tap-highlight-color:transparent; }
 button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 .home { position:relative; min-height:100svh; overflow:hidden; isolation:isolate; }
-.scene { position:absolute; inset:0; z-index:-1; overflow:hidden; background:#e5d9c5 url('/assets/cloth-detail.webp') center bottom / max(100%,1152px) auto repeat-y; }
+.scene { position:absolute; inset:0; z-index:-1; overflow:hidden; background:#c5a47b url('/assets/table-detail.webp') center bottom / max(100%,1152px) auto repeat-y; }
 .scene__frame { position:absolute; top:0; left:50%; width:max(100%,1152px); aspect-ratio:3/2; transform:translateX(-50%); mask-image:linear-gradient(#000 83%,transparent); }
 .scene__interior { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
 /* Original mountain view, independently layered for future parallax. */
-.scene__landscape { position:absolute; left:16.25%; top:0; width:67%; height:29.5%; background:url('/assets/train-reference.jpg') center 26% / 195% auto no-repeat; border-radius:0 0 38px 38px; filter:saturate(.78) sepia(.1); }
+.scene__landscape { position:absolute; left:16.25%; top:0; width:67%; height:29.5%; background:url('/assets/train-table.webp') center top / 149.25% auto no-repeat; border-radius:0 0 38px 38px; }
 .journal-stage { width:min(1080px,calc(100% - 100px)); margin:clamp(180px,18.4vw,280px) auto 0; padding-bottom:36px; }
 .notebook { position:relative; display:grid; grid-template-columns:1fr 1fr; min-height:550px; padding:11px 12px 15px; border:1px solid #214c40; border-radius:20px; background:var(--forest) url('/assets/paper-grain.webp') center / 450px; background-blend-mode:multiply; box-shadow:0 27px 27px -16px #30261888,0 8px 10px #30261855,inset 0 0 0 3px #ffffff16; }
 .page { position:relative; min-width:0; background:var(--paper) url('/assets/paper-grain.webp') center / 560px; border:1px solid #d9d0be; }
@@ -93,34 +93,37 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 }
 @media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } }
 
-/* A physical writing surface and a small, movable personal margin. */
-.journal-stage { position:relative; width:min(1160px,calc(100% - 210px)); margin-left:auto; margin-right:45px; perspective:1800px; }
-.white-surface { position:absolute; z-index:-1; inset:-34px -65px -45px -210px; background:#f3eee3 url('/assets/paper-grain.webp') center / 700px; border-radius:45% 8% 18% 3% / 5% 8% 5% 12%; transform:rotate(-2deg); box-shadow:inset 9px 12px 25px #fff9, inset -12px -15px 30px #a99d8040,0 17px 28px #33291d4d; }
-.notebook { min-height:590px; transform:rotateX(3deg); transform-origin:center bottom; border-bottom-width:8px; box-shadow:0 8px 0 #15352d,0 12px 0 #102d25,0 35px 30px -10px #30261877,0 12px 12px #30261855,inset 0 0 0 3px #ffffff16; }
-.page--letter { box-shadow:inset -22px 0 28px -23px #66583ba6,-1px 3px 0 #e2dacb,-2px 6px 0 #cec6b7,-2px 9px 0 #e6ddcc; }
-.page--contents { box-shadow:inset 22px 0 28px -23px #66583ba6,1px 3px 0 #e2dacb,2px 6px 0 #cec6b7,2px 9px 0 #e6ddcc; }
-.personal-details { position:absolute; left:-140px; top:80px; width:160px; z-index:12; }
-.photo-card { --drag-x:0px; --drag-y:0px; position:relative; width:164px; padding:11px 11px 19px; background:#fbf8ef url('/assets/paper-grain.webp') center / 400px; transform:translate(var(--drag-x),var(--drag-y)) rotate(-9deg); box-shadow:3px 8px 11px #3026183d,inset 0 0 0 1px #fff9; cursor:grab; touch-action:none; user-select:none; }
-.photo-card:active { cursor:grabbing; }
-.photo-card:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
-.photo-placeholder { height:156px; background:#d9d4c7; border:1px solid #c8c0ae; display:grid; place-items:center; color:#55584e; font:11px var(--font-mono); }
-.photo-caption { display:block; margin:17px 0 5px; font:24px var(--font-display); }
-.photo-note { font:9px/1.5 var(--font-mono); color:#55584e; }
-.paper-slip { position:absolute; inset:-28px 12px auto -17px; height:200px; padding:15px; background:#e5d7b9 url('/assets/paper-grain.webp') center / 400px; transform:rotate(7deg); box-shadow:2px 3px 6px #30261829; font:9px var(--font-mono); color:#62604d; display:flex; flex-direction:column; gap:10px; }
-.lavender-marker { position:absolute; left:28px; bottom:-43px; width:95px; height:27px; background:var(--lavender); transform:rotate(8deg); box-shadow:1px 2px 3px #30261820; z-index:-1; }
-.page-controls { margin-top:34px; }
+/* Centered composition: the book owns the frame; cards float independently. */
+.journal-stage { position:relative; width:min(1220px,calc(100% - 96px)); margin:clamp(190px,16.5vw,240px) auto 0; perspective:1800px; padding-bottom:35px; }
+.notebook { min-height:590px; border-bottom-width:6px; box-shadow:0 6px 0 #15352d,0 10px 0 #102d25,0 28px 28px -10px #30261866,inset 0 0 0 3px #ffffff16; }
+.page--letter { box-shadow:inset -22px 0 28px -23px #66583ba6,-1px 3px 0 #e2dacb,-2px 6px 0 #cec6b7; }
+.page--contents { box-shadow:inset 22px 0 28px -23px #66583ba6,1px 3px 0 #e2dacb,2px 6px 0 #cec6b7; }
+.personal-details { position:fixed; inset:0; z-index:50; pointer-events:none; }
+.movable-card { --drag-x:0px; --drag-y:0px; position:absolute; pointer-events:auto; transform:translate(var(--drag-x),var(--drag-y)) rotate(var(--tilt)); cursor:grab; touch-action:none; user-select:none; }
+.movable-card:active { cursor:grabbing; }
+.movable-card:focus-visible { outline:3px solid var(--forest); outline-offset:5px; }
+.photo-card { --tilt:-8deg; left:28px; top:100px; width:128px; padding:9px 9px 14px; background:#fbf8ef url('/assets/paper-grain.webp') center / 400px; box-shadow:3px 8px 11px #3026183d; }
+.photo-placeholder { height:118px; background:#d9d4c7; border:1px solid #c8c0ae; display:grid; place-items:center; color:#55584e; font:10px var(--font-mono); }
+.photo-caption { display:block; margin:12px 0 5px; font:21px var(--font-display); }
+.photo-note { font:8px/1.5 var(--font-mono); color:#55584e; }
+.paper-slip { --tilt:7deg; left:38px; top:85px; width:125px; height:170px; padding:13px; background:#e5d7b9 url('/assets/paper-grain.webp') center / 400px; box-shadow:2px 3px 6px #30261829; font:9px var(--font-mono); color:#4e4e42; display:flex; flex-direction:column; gap:10px; }
+.page-controls { margin-top:28px; }
 @media(max-width:1050px) {
-  .journal-stage { width:calc(100% - 64px); margin-inline:auto; margin-top:240px; }
-  .notebook { min-height:545px; }
-  .white-surface { inset:-35px -40px -55px; }
-  .personal-details { top:-150px; left:6px; transform:scale(.65); transform-origin:top left; }
+ .journal-stage { width:calc(100% - 48px); margin:210px auto 0; }
+ .notebook { min-height:545px; }
+ .photo-card { width:106px; top:55px; left:25px; }
+ .photo-placeholder { height:90px; }
+ .paper-slip { width:105px; height:140px; top:40px; left:36px; }
 }
 @media(max-width:600px) {
-  .journal-stage { width:calc(100% - 32px); margin-top:265px; }
-  .notebook { transform:none; min-height:0; }
-  .white-surface { inset:-45px -20px -25px; border-radius:20px; }
-  .personal-details { top:-172px; left:15px; transform:scale(.62); }
-  .page--letter { box-shadow:inset 11px 0 18px -20px #66583b9c; }
-  .page--contents { box-shadow:0 4px 0 #e0d8c8,0 7px 0 #cfc5b2; }
+ .journal-stage { width:calc(100% - 28px); margin:210px auto 0; }
+ .notebook { min-height:0; }
+ .photo-card { top:44px; left:24px; width:96px; }
+ .photo-placeholder { height:76px; }
+ .photo-caption { font-size:18px; margin-top:9px; }
+ .photo-note { font-size:7px; }
+ .paper-slip { width:96px; height:125px; top:32px; left:34px; }
+ .page--letter { box-shadow:inset 11px 0 18px -20px #66583b9c; }
+ .page--contents { box-shadow:0 4px 0 #e0d8c8,0 7px 0 #cfc5b2; }
 }
 

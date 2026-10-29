@@ -1,5 +1,5 @@
 import { ArrowLeft, ArrowRight } from '@phosphor-icons/react';
-import { useRef } from 'react';
+import { useRef, useEffect } from 'react';
 import '@fontsource/newsreader/latin-400.css';
 import '@fontsource/manrope/latin-400.css';
 import '@fontsource/manrope/latin-500.css';
@@ -9,7 +9,7 @@ const sections = ['A letter', 'My story', 'Experiences & projects', 'Wispr Flow 
 
 function TrainScene() {
   return <div className="scene" aria-hidden="true"><div className="scene__frame">
-    <img className="scene__interior" src="/assets/train-cloth.webp" alt="" fetchPriority="high" />
+    <img className="scene__interior" src="/assets/train-table.webp" alt="" fetchPriority="high" />
     <div className="scene__landscape" />
   </div></div>;
 }
@@ -24,38 +24,53 @@ function Rings() {
   </div>;
 }
 
-function PersonalDetails() {
+function MovableCard({className, label, children}) {
   const start = useRef(null);
+  const card = useRef(null);
+  const position = useRef({x:0,y:0});
+  function shift(dx,dy) {
+    const el=card.current;
+    const rect=el.getBoundingClientRect();
+    const width=document.documentElement.clientWidth;
+    const height=window.innerHeight;
+    position.current.x+=Math.max(8-rect.left,Math.min(width-8-rect.right,dx));
+    position.current.y+=Math.max(8-rect.top,Math.min(height-8-rect.bottom,dy));
+    el.style.setProperty('--drag-x',`${position.current.x}px`);
+    el.style.setProperty('--drag-y',`${position.current.y}px`);
+  }
+  useEffect(()=>{
+    const fit=()=>shift(0,0);
+    window.addEventListener('resize',fit);
+    return ()=>window.removeEventListener('resize',fit);
+  },[]);
   function down(event) {
     if (event.button !== 0) return;
     const el = event.currentTarget;
-    start.current = { x:event.clientX, y:event.clientY, dx:Number(el.dataset.dx || 0), dy:Number(el.dataset.dy || 0) };
+    start.current = { x:event.clientX, y:event.clientY };
+    el.style.zIndex=String(Date.now());
     el.setPointerCapture(event.pointerId);
   }
   function move(event) {
     if (!start.current || !event.currentTarget.hasPointerCapture(event.pointerId)) return;
-    const el=event.currentTarget;
-    const x=Math.max(-80,Math.min(180,start.current.dx+event.clientX-start.current.x));
-    const y=Math.max(-80,Math.min(160,start.current.dy+event.clientY-start.current.y));
-    el.dataset.dx=x; el.dataset.dy=y;
-    el.style.setProperty('--drag-x',`${x}px`); el.style.setProperty('--drag-y',`${y}px`);
+    shift(event.clientX-start.current.x,event.clientY-start.current.y);
+    start.current={x:event.clientX,y:event.clientY};
   }
   function key(event) {
     const directions={ArrowLeft:[-8,0],ArrowRight:[8,0],ArrowUp:[0,-8],ArrowDown:[0,8]};
     if(!directions[event.key]) return;
-    event.preventDefault(); const el=event.currentTarget; const [x,y]=directions[event.key];
-    el.dataset.dx=Math.max(-80,Math.min(180,Number(el.dataset.dx||0)+x));
-    el.dataset.dy=Math.max(-80,Math.min(160,Number(el.dataset.dy||0)+y));
-    el.style.setProperty('--drag-x',`${el.dataset.dx}px`); el.style.setProperty('--drag-y',`${el.dataset.dy}px`);
+    event.preventDefault(); const [x,y]=directions[event.key]; shift(x,y);
   }
+  return <div ref={card} className={`movable-card ${className}`} tabIndex={0} role="group" aria-label={`${label}. Drag anywhere on screen, or use arrow keys when focused.`} onPointerDown={down} onPointerMove={move} onPointerUp={()=>{start.current=null;}} onPointerCancel={()=>{start.current=null;}} onKeyDown={key}>{children}</div>;
+}
+
+function PersonalDetails() {
   return <aside className="personal-details" aria-label="Personal details">
-    <div className="paper-slip" aria-hidden="true"><span>ARYAN</span><span>PERSONAL NOTES</span></div>
-    <div className="photo-card" tabIndex={0} role="group" aria-label="Photo placeholder. Drag to move, or use arrow keys when focused." onPointerDown={down} onPointerMove={move} onPointerUp={()=>{start.current=null;}} onPointerCancel={()=>{start.current=null;}} onKeyDown={key}>
+    <MovableCard className="paper-slip" label="Personal note placeholder"><span>ARYAN</span><span>[A personal note]</span></MovableCard>
+    <MovableCard className="photo-card" label="Photo placeholder">
       <div className="photo-placeholder"><span>[Your photo]</span></div>
       <span className="photo-caption">Aryan</span>
       <span className="photo-note">[A little about me]</span>
-    </div>
-    <span className="lavender-marker" aria-hidden="true" />
+    </MovableCard>
   </aside>;
 }
 
@@ -72,8 +87,8 @@ function FolderNavigation() {
 export function App() {
   return <main className="home">
     <TrainScene />
+    <PersonalDetails />
     <div className="journal-stage">
-      <PersonalDetails />
       <article className="notebook" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
           <div className="introduction"><h1>Aryan<span className="name-underline" aria-hidden="true" /></h1><p>[Your introduction]</p></div>
