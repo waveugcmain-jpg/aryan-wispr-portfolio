@@ -1,0 +1,126 @@
+/* Design tokens */
+:root {
+  --paper:#f5f1e8; --forest:#183e34; --rust:#b65f3f; --lavender:#dcd2f0; --ink:#252923;
+  --folder:#a93c32; --folder-ink:#fff4e3;
+  --font-display:'Newsreader',Georgia,serif; --font-body:'Manrope',Arial,sans-serif; --font-mono:'IBM Plex Mono',monospace;
+  --space-1:4px; --space-2:8px; --space-3:12px; --space-4:16px; --space-6:24px; --space-8:32px; --space-12:48px; --space-16:64px;
+  --page-radius:12px; --hover-duration:220ms; --ease-out:cubic-bezier(.2,.7,.2,1);
+  color:var(--ink); font-family:var(--font-body); font-synthesis:none; text-rendering:optimizeLegibility; -webkit-font-smoothing:antialiased;
+}
+* { box-sizing:border-box; }
+body { margin:0; min-width:320px; background:#c5a47b; }
+button { font:inherit; -webkit-tap-highlight-color:transparent; }
+button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
+.home { position:relative; min-height:100svh; overflow:hidden; isolation:isolate; }
+.scene { position:absolute; inset:0; z-index:-1; overflow:hidden; background:#e5d9c5 url('/assets/train-cloth.webp') center bottom / max(100%,1152px) auto no-repeat; }
+.scene__frame { position:absolute; top:0; left:50%; width:max(100%,1152px); aspect-ratio:3/2; transform:translateX(-50%); mask-image:linear-gradient(#000 83%,transparent); }
+.scene__interior { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; }
+/* Original mountain view, independently layered for future parallax. */
+.scene__landscape { position:absolute; left:16.25%; top:0; width:67%; height:29.5%; background:url('/assets/train-reference.jpg') center 26% / 195% auto no-repeat; border-radius:0 0 38px 38px; filter:saturate(.78) sepia(.1); }
+.journal-stage { width:min(1080px,calc(100% - 100px)); margin:clamp(180px,18.4vw,280px) auto 0; padding-bottom:36px; }
+.notebook { position:relative; display:grid; grid-template-columns:1fr 1fr; min-height:550px; padding:11px 12px 15px; border:1px solid #214c40; border-radius:20px; background:var(--forest) url('/assets/paper-grain.webp') center / 450px; background-blend-mode:multiply; box-shadow:0 27px 27px -16px #30261888,0 8px 10px #30261855,inset 0 0 0 3px #ffffff16; }
+.page { position:relative; min-width:0; background:var(--paper) url('/assets/paper-grain.webp') center / 560px; border:1px solid #d9d0be; }
+.page--letter { border-radius:var(--page-radius) 5px 5px var(--page-radius); box-shadow:inset -17px 0 22px -23px #66583b9c,-1px 3px 0 #e2dacb,-2px 6px 0 #cec6b7; padding:82px 62px; }
+.page--contents { border-radius:5px var(--page-radius) var(--page-radius) 5px; box-shadow:inset 17px 0 24px -23px #66583b9c,1px 3px 0 #e2dacb,2px 6px 0 #cec6b7; padding:47px 38px 42px 49px; }
+.introduction h1 { position:relative; display:inline-block; margin:0; font:400 clamp(80px,8vw,118px)/1.12 var(--font-display); letter-spacing:-5px; z-index:0; }
+.name-underline { position:absolute; bottom:5px; left:2px; width:102%; height:13px; border-top:5px solid var(--lavender); border-radius:50%; transform:rotate(-3deg); z-index:-1; }
+.introduction p { font:400 20px/1.6 var(--font-display); margin:32px 0 0; }
+.eyebrow { font:400 10px/1.5 var(--font-mono); letter-spacing:2.1px; margin:0 0 23px 8px; color:#62645c; }
+.page-number { position:absolute; bottom:24px; font:400 9px/1 var(--font-mono); color:#6d6d62; }
+.page--letter .page-number { left:37px; }
+.page--contents .page-number { right:33px; }
+.binding { position:absolute; inset:48px auto 46px 50%; width:44px; transform:translateX(-50%); display:flex; flex-direction:column; justify-content:space-between; pointer-events:none; z-index:10; }
+.binding__assembly { position:relative; display:block; height:18px; width:44px; }
+.binding__hole { position:absolute; top:3px; width:10px; height:12px; border-radius:50%; background:#443d31; box-shadow:0 0 0 2px #bdb39b77,inset 1px 2px 3px #0f0e0cc9; }
+.binding__hole--left { left:2px; }
+.binding__hole--right { right:2px; }
+.binding__ring { position:absolute; top:3px; left:3px; width:38px; height:10px; border:1px solid #776e5a; border-radius:50%; background:linear-gradient(180deg,#827967 0%,#fffdf5 24%,#c6c4b6 45%,#7d7b6d 74%,#e1ddcb 90%); transform:rotate(-7deg); box-shadow:1px 3px 3px #4c3c2973; }
+.folder-stack { position:relative; height:388px; }
+.folder { position:absolute; left:0; top:calc(var(--index) * 65px); width:100%; height:133px; padding:0; border:0; background:transparent; color:var(--folder-ink); text-align:left; transform:translateX(var(--shift)) rotate(var(--rotation)); transform-origin:50% 80%; cursor:pointer; isolation:isolate; transition:transform var(--hover-duration) var(--ease-out),filter var(--hover-duration) var(--ease-out); filter:drop-shadow(0 3px 2px #49221e45); }
+.folder--1 { --index:0; --shift:0px; --rotation:-2deg; --folder:#94342b; }
+.folder--2 { --index:1; --shift:5px; --rotation:.9deg; --folder:#a63c31; }
+.folder--3 { --index:2; --shift:-3px; --rotation:-1.1deg; --folder:#a53a30; }
+.folder--4 { --index:3; --shift:4px; --rotation:1deg; --folder:#ad4034; }
+.folder--5 { --index:4; --shift:0px; --rotation:-.8deg; --folder:#a33a30; }
+.folder__tab,.folder__face { position:absolute; background:var(--folder) url('/assets/paper-grain.webp') center / 340px; background-blend-mode:multiply; z-index:-1; }
+.folder__tab { left:0; top:0; width:42%; height:30px; clip-path:polygon(0 100%,0 8px,7px 0,83% 0,100% 100%); border-radius:4px 0 0 0; }
+.folder__face { inset:17px 0 0; border-radius:2px 5px 4px 4px; border:1px solid #6e241c55; box-shadow:inset 0 1px 0 #ffdfb34d,inset 0 -2px 3px #681b1d30; }
+.folder__label { position:absolute; top:0; left:0; right:0; display:flex; align-items:baseline; gap:15px; padding:31px 22px 0; }
+.folder__number { font:400 10px/1.4 var(--font-mono); opacity:.9; }
+.folder__title { font:500 17px/1.35 var(--font-body); letter-spacing:-.35px; }
+.folder--5::after { content:''; position:absolute; bottom:24px; left:23px; right:23px; border-bottom:1px solid #efd4b659; }
+@media (hover:hover) { .folder:hover { transform:translate(calc(var(--shift) + 7px),-8px) rotate(0deg); filter:drop-shadow(0 8px 4px #49221e55) brightness(1.06); } }
+.folder:focus-visible { outline-color:var(--forest); transform:translate(calc(var(--shift) + 7px),-8px) rotate(0deg); z-index:6; }
+.page-controls { display:flex; justify-content:center; align-items:center; gap:28px; margin-top:27px; }
+.page-controls button { display:inline-flex; align-items:center; gap:15px; border:0; padding:10px 5px; background:none; color:#282c24; font-size:12px; font-weight:500; letter-spacing:.1px; cursor:default; }
+.page-controls__divider { width:1px; height:18px; background:#514b3d61; }
+@media (max-width:1050px) {
+  .journal-stage { width:calc(100% - 48px); margin-top:200px; }
+  .notebook { min-height:510px; }
+  .page--letter { padding:87px 35px; }
+  .page--contents { padding:42px 25px 40px 30px; }
+  .introduction h1 { font-size:86px; letter-spacing:-4px; }
+  .introduction p { font-size:18px; }
+  .folder-stack { height:365px; }
+  .folder { top:calc(var(--index) * 61px); height:126px; }
+  .folder__label { padding:31px 15px 0; gap:11px; }
+  .folder__title { font-size:14px; letter-spacing:-.3px; }
+  .eyebrow { font-size:9px; letter-spacing:1.5px; }
+}
+@media (max-width:600px) {
+  .scene__frame { width:1000px; }
+  .scene { background-size:1000px auto; }
+  .journal-stage { width:calc(100% - 32px); margin-top:164px; padding-bottom:24px; }
+  .notebook { display:block; padding:9px 9px 13px; border-radius:15px; }
+  .page--letter { min-height:295px; padding:52px 26px 34px; border-radius:9px 9px 0 0; border-bottom:none; box-shadow:inset 11px 0 18px -20px #66583b9c; }
+  .introduction h1 { font-size:82px; letter-spacing:-3.5px; }
+  .introduction p { margin-top:22px; font-size:18px; }
+  .name-underline { height:10px; border-top-width:4px; }
+  .page--contents { padding:22px 25px 45px 27px; border-radius:0 0 9px 9px; border-top:none; box-shadow:0 4px 0 #e0d8c8,0 7px 0 #cfc5b2; }
+  .eyebrow { margin-left:1px; margin-bottom:23px; }
+  .folder-stack { height:366px; }
+  .folder__title { font-size:14px; }
+  .folder__label { gap:11px; padding-inline:14px; }
+  .binding { left:12px; inset-block:42px 45px; width:19px; transform:none; }
+  .binding__assembly { width:19px; }
+  .binding__hole--left { display:none; }
+  .binding__hole--right { width:8px; right:0; }
+  .binding__ring { width:22px; left:-5px; }
+  .page--letter .page-number { display:none; }
+  .page-number { bottom:19px; }
+  .page-controls { gap:17px; margin-top:20px; }
+  .page-controls button { gap:9px; font-size:11px; }
+}
+@media (prefers-reduced-motion:reduce) { *,*::before,*::after { transition:none !important; } }
+
+/* A physical writing surface and a small, movable personal margin. */
+.journal-stage { position:relative; width:min(1160px,calc(100% - 210px)); margin-left:auto; margin-right:45px; perspective:1800px; }
+.white-surface { position:absolute; z-index:-1; inset:-34px -65px -45px -210px; background:#f3eee3 url('/assets/paper-grain.webp') center / 700px; border-radius:45% 8% 18% 3% / 5% 8% 5% 12%; transform:rotate(-2deg); box-shadow:inset 9px 12px 25px #fff9, inset -12px -15px 30px #a99d8040,0 17px 28px #33291d4d; }
+.notebook { min-height:590px; transform:rotateX(3deg); transform-origin:center bottom; border-bottom-width:8px; box-shadow:0 8px 0 #15352d,0 12px 0 #102d25,0 35px 30px -10px #30261877,0 12px 12px #30261855,inset 0 0 0 3px #ffffff16; }
+.page--letter { box-shadow:inset -22px 0 28px -23px #66583ba6,-1px 3px 0 #e2dacb,-2px 6px 0 #cec6b7,-2px 9px 0 #e6ddcc; }
+.page--contents { box-shadow:inset 22px 0 28px -23px #66583ba6,1px 3px 0 #e2dacb,2px 6px 0 #cec6b7,2px 9px 0 #e6ddcc; }
+.personal-details { position:absolute; left:-140px; top:80px; width:160px; z-index:12; }
+.photo-card { --drag-x:0px; --drag-y:0px; position:relative; width:164px; padding:11px 11px 19px; background:#fbf8ef url('/assets/paper-grain.webp') center / 400px; transform:translate(var(--drag-x),var(--drag-y)) rotate(-9deg); box-shadow:3px 8px 11px #3026183d,inset 0 0 0 1px #fff9; cursor:grab; touch-action:none; user-select:none; }
+.photo-card:active { cursor:grabbing; }
+.photo-card:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
+.photo-placeholder { height:156px; background:#d9d4c7; border:1px solid #c8c0ae; display:grid; place-items:center; color:#55584e; font:11px var(--font-mono); }
+.photo-caption { display:block; margin:17px 0 5px; font:24px var(--font-display); }
+.photo-note { font:9px/1.5 var(--font-mono); color:#55584e; }
+.paper-slip { position:absolute; inset:-28px 12px auto -17px; height:200px; padding:15px; background:#e5d7b9 url('/assets/paper-grain.webp') center / 400px; transform:rotate(7deg); box-shadow:2px 3px 6px #30261829; font:9px var(--font-mono); color:#62604d; display:flex; flex-direction:column; gap:10px; }
+.lavender-marker { position:absolute; left:28px; bottom:-43px; width:95px; height:27px; background:var(--lavender); transform:rotate(8deg); box-shadow:1px 2px 3px #30261820; z-index:-1; }
+.page-controls { margin-top:34px; }
+@media(max-width:1050px) {
+  .journal-stage { width:calc(100% - 64px); margin-inline:auto; margin-top:240px; }
+  .notebook { min-height:545px; }
+  .white-surface { inset:-35px -40px -55px; }
+  .personal-details { top:-150px; left:6px; transform:scale(.65); transform-origin:top left; }
+}
+@media(max-width:600px) {
+  .journal-stage { width:calc(100% - 32px); margin-top:265px; }
+  .notebook { transform:none; min-height:0; }
+  .white-surface { inset:-45px -20px -25px; border-radius:20px; }
+  .personal-details { top:-172px; left:15px; transform:scale(.62); }
+  .page--letter { box-shadow:inset 11px 0 18px -20px #66583b9c; }
+  .page--contents { box-shadow:0 4px 0 #e0d8c8,0 7px 0 #cfc5b2; }
+}
+
