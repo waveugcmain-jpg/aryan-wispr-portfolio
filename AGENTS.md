@@ -13,3 +13,5 @@ Build app UI in `src/`. Keep `.openai/hosting.json`, `worker/index.js`, `scripts
 Keep navigation as dossier tabs above the red notebook. The complete user-provided letter spans both pages with restrained alpine and coffee illustrations. Ask Aryan is a visual-only preview until explicitly authorized to implement functionality.
 
 Ask bar sits above tabs. On load the red cover opens over 1.8 seconds; reduced-motion opens immediately.
+
+Opening timing: automatic one-second closed hold, followed by a slow 2.8-second opening. No click or scroll trigger.
