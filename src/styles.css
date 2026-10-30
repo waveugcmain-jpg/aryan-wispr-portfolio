@@ -302,3 +302,19 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 @media(prefers-reduced-motion:reduce) { .chapter--inside { transform:none; opacity:1; transition:none; } }
 
 .journal-stage { perspective:none; }
+
+/* Contain the stage margin so the train scene begins at the top edge. */
+.home { display:flow-root; }
+.letter--final { font-size:20px; line-height:1.55; }
+.letter--final .letter-opening { font:400 27px/1.35 var(--font-display); letter-spacing:-.35px; margin:0 0 28px; }
+.letter--final p { margin:0 0 24px; }
+.letter--final mark { color:inherit; padding:0 2px; border-radius:2px; box-decoration-break:clone; -webkit-box-decoration-break:clone; background:none; }
+.letter--final .highlight-purple { background:linear-gradient(transparent 28%,#ded1ed 28%,#ded1ed 92%,transparent 92%); }
+.letter--final .highlight-green { background:linear-gradient(transparent 28%,#d5e4ca 28%,#d5e4ca 92%,transparent 92%); }
+.letter-turn { color:#254a3b; }
+.letter--final .letter-aside { font-style:italic; color:#625e54; margin-top:28px; }
+.letter--final .letter-game { margin-top:32px; }
+.letter--final .letter-signature { font-size:30px; margin-top:30px; }
+.letter--final .proof-link { color:#4b365e; text-decoration-color:#b9a5cb; text-decoration-thickness:1px; white-space:nowrap; }
+@media(min-width:701px) and (max-width:1050px) { .letter--final { font-size:18px; }.letter--final .letter-opening { font-size:24px; } }
+@media(max-width:700px) { .letter--final { font-size:19px; line-height:1.55; }.letter--final .letter-opening { font-size:25px; }.letter--final p { margin-bottom:23px; } }

@@ -56,33 +56,22 @@ export function App() {
       <FolderNavigation active={active} go={go} />
       <article id="chapter-1" data-chapter="0" className="notebook chapter chapter--first" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
-          <div className="letter">
-            <h1>hi,</h1>
-            <p>you’ve probably opened a few hundred of these this week. and i know they all say the same things.</p>
-            <p>obsessed with growth. huge fan of the product. and my favourite, “extremely high agency.”</p>
-            <p>i want to do this a little differently.</p>
-            <p>you’re on a train now. breathe in. grab a coffee. hit play on the music.</p>
-            <p>i’ll answer the only questions that matter. it’ll take exactly <mark>180 seconds.</mark></p>
-            <p>let’s begin.</p>
-            <h2>has aryan actually owned a growth channel before?</h2>
-            <p>yes. i run <mark>wave.</mark> we build creator armies: creators posting about one product every single day until it goes viral. the same playbook you run with ugc in the us. right now we’re running it for linkrunner, backed by titan capital and 2am vc. before wave, i wrote <mark>200+ winning ads</mark> at zyra for adani, meesho, country delight and more.</p>
+          <div className="letter letter--final">
+            <h1 className="letter-opening">everything on this page, i <mark className="highlight-purple">said out loud</mark> and built using <mark className="highlight-green">wispr flow.</mark></h1>
+            <p>but this opening letter was the hardest part. i wanted my application to be cinematic, the one that makes you say "wow".</p>
+            <p>and i realised no portfolio can do that. <em className="letter-turn">only real work can.</em></p>
+            <p>so instead of boring y'all with buzzwords, i went ahead, <mark className="highlight-green">signed 3 indian creators</mark>, negotiated with them, <mark className="highlight-purple">paid them out of my own pocket</mark>, and published their reels on instagram. they're live, and you can watch them right here. <button className="letter-proof proof-link" onClick={()=>go(3)}>[reels + views →]</button></p>
+            <p className="letter-aside">nobody asked me to do this (well, you kinda did).</p>
           </div>
           <span className="page-number" aria-hidden="true">01</span>
         </section>
         <section className="page page--contents" aria-label="Letter, continued">
-          <div className="letter">
-            <h2>is aryan (insert buzzword here) high agency?</h2>
-            <p>i’ve started two companies. nobody handed me either one. when it’s yours, there’s no one to escalate to.</p>
-            <h2>is aryan full of crap?</h2>
-            <p>i hope you don’t think this :(</p>
-            <p>but no. for this challenge i actually signed creators, negotiated with them, made <mark>4 ads for wispr flow</mark> and ran them as trial reels on instagram. real strangers, real views. <button className="letter-proof proof-link" onClick={()=>go(3)}>see the numbers →</button></p>
-            <h2>is aryan smart? creative?</h2>
-            <p>my mom says i’m smart. and i failed art class.</p>
-            <p>so you’ll have to judge that one yourself. you’re holding the evidence.</p>
-            <p>ok. that’s it.</p>
-            <p>the rest of this notebook is the proof. short on time? ask me anything in the bar below. say it out loud. you know how.</p>
+          <div className="letter letter--final">
+            <p>but <mark className="highlight-purple">i like to win.</mark> i like to differentiate. and this part was easy for me, because <mark className="highlight-green">i run wave</mark>, a viral growth agency where we launch large ugc programs for brands.</p>
+            <p>before that, i used to fall asleep thinking about what goes viral (i know, kinda sad), and wrote <mark className="highlight-green">200+ ad scripts</mark> for brands like adani, meesho, country delight, vama and goodscore.</p>
+            <p>i'm <mark className="highlight-purple">stubborn in a useful way.</mark> if something doesn't work, i keep poking at it until it does. and being a founder, <mark className="highlight-green">i don't wait for anyone</mark> to tell me what to do.</p>
+            <p className="letter-game">okay, enough boring y'all. let's play a game. try aiming your mouse at me :)</p>
             <p className="letter-signature">— aryan</p>
-            <span className="letter-credit">written with Wispr Flow</span>
           </div>
           <span className="page-number" aria-hidden="true">02</span>
         </section>

@@ -24,3 +24,5 @@ Verified in preview: cover-open is active with 1s delay, initial identity transf
 Refined spread: verified cover text, initial letter opacity 0, reveal delay 3.85s after 1s+2.8s hinge; settled notebook transform identity and centered. Mobile 375px has no horizontal overflow. Evidence qa/refined-spread.jpg.
 
 Five-chapter pass: verified 5 chapter elements, zero removed illustrations, active Wispr tab after jump, creative 02 selection, and layouts at 1440/768/375. Tablet and phone reported no horizontal overflow. Media slots are placeholders; actual playback awaits assets. Screenshot: qa/wispr-chapter.jpg.
+
+Final letter update: confirmed new letter rendered, reels + views navigates to chapter 4, scene top is 0 at desktop and phone widths, no overflow at 1440/768/375. Evidence qa/final-letter.jpg.
