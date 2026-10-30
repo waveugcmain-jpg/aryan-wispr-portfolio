@@ -30,3 +30,5 @@ Final letter update: confirmed new letter rendered, reels + views navigates to c
 Letter rhythm: desktop spread measured 619px, no horizontal overflow at 1440 or 375px, phone text 18px. Evidence qa/lighter-letter.jpg.
 
 Building Wave: replaced section 03 placeholders with founder story and Linkrunner brief. Checked at 375, 768, 1440px: no horizontal overflow. Production build and hosting preparation pass. Screenshot: qa/building-wave.jpg. Missing numbers, sales learning and reel URL remain marked placeholders.
+
+Before Wave: user copy implemented across Zyra/Nebula pages with role labels and lavender lessons. Desktop and tablet inspected; 375/768 overflow checks pass. Build passes. Navigation expanded to six sections and letter proof link targets Wispr at 05.

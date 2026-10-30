@@ -7,7 +7,7 @@ import '@fontsource/manrope/latin-400.css';
 import '@fontsource/manrope/latin-500.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 
-const sections = ['A letter', 'My story', 'Building Wave', 'Wispr Flow work', 'contact me'];
+const sections = ['A letter', 'My story', 'Building Wave', 'Before Wave', 'Wispr Flow work', 'contact me'];
 
 function TrainScene() {
   return <div className="scene" aria-hidden="true"><div className="scene__frame">
@@ -61,7 +61,7 @@ export function App() {
             <p>but this opening letter was the hardest part. i wanted my application to be cinematic, the one that makes you say "wow".</p>
             <p className="letter-pivot">and i realised no portfolio can do that.<br/><em className="letter-turn">only real work can.</em></p>
             <p className="letter-action">so instead of boring y'all with buzzwords, i went ahead, <mark className="highlight-green">signed 3 indian creators</mark>, negotiated with them, <mark className="highlight-purple">paid them out of my own pocket</mark>, and published their reels on instagram.</p>
-            <p className="letter-reels">they're live, and you can watch them right here.<br/><button className="letter-proof proof-link" onClick={()=>go(3)}>[reels + views →]</button></p>
+            <p className="letter-reels">they're live, and you can watch them right here.<br/><button className="letter-proof proof-link" onClick={()=>go(4)}>[reels + views →]</button></p>
             <p className="letter-aside">nobody asked me to do this (well, you kinda did).</p>
           </div>
           <span className="page-number" aria-hidden="true">01</span>
@@ -83,7 +83,7 @@ export function App() {
       <nav className="page-controls" aria-label="Page navigation">
         <button type="button" disabled={active===0} onClick={()=>go(active-1)}><ArrowLeft size={18} weight="light" aria-hidden="true" /> Previous Page</button>
         <span className="page-controls__divider" aria-hidden="true" />
-        <button type="button" disabled={active===4} onClick={()=>go(active+1)}>Next Page <ArrowRight size={18} weight="light" aria-hidden="true" /></button>
+        <button type="button" disabled={active===sections.length-1} onClick={()=>go(active+1)}>Next Page <ArrowRight size={18} weight="light" aria-hidden="true" /></button>
       </nav>
 
     </div>
@@ -119,12 +119,32 @@ function InsideChapters(){return <>
     <span className="wave-pending">[watch the reels →]<small>link to be added</small></span>
   </section>
  </Spread>
- <Spread number={4} title="Wispr Flow work">
-  <section className="page editorial-page"><Heading number="04" kicker="THE FIELD NOTES" title={<>Less claiming.<br/><em>More doing.</em></>}/><p className="deck">[The experiment: what you wanted to learn, who you wanted to reach, and how you tested it.]</p><div className="memo-block"><span className="folio">01 / THE QUESTION</span><p>[The central growth hypothesis.]</p></div><div className="memo-block"><span className="folio">02 / THE READOUT</span><p>[What worked, what didn’t, and what the results actually support.]</p></div><div className="next-test"><span className="folio">03 / WHAT I’D TEST NEXT</span><p>[The next experiment, why it matters, and how you would measure success.]</p></div><small className="data-note">[Results updated: date · observation window]</small></section>
+ <Spread number={4} title="Before Wave">
+  <section className="page editorial-page past-page">
+    <span className="folio">04 / before wave</span>
+    <h2 className="past-company">zyra</h2>
+    <p className="past-role">growth &amp; creative strategy · 1 year</p>
+    <p className="past-intro">i wrote <mark>200+ performance ads</mark> that worked, for adani, meesho, country delight, vama and goodscore.</p>
+    <p>that's where i got good at figuring out <em>why people stop scrolling.</em> and why they don't.</p>
+    <div className="past-takeaway past-takeaway--lesson"><h3>what it taught me</h3><p className="copy-placeholder">[one real learning from zyra, e.g. something about hooks, testing, or what made an ad win]</p></div>
+  </section>
+  <section className="page editorial-page past-page past-page--nebula">
+    <span className="folio" aria-hidden="true">experience / 02</span>
+    <h2 className="past-company">nebula</h2>
+    <p className="past-role">founder</p>
+    <p className="past-intro">a digital workspace for remote startup teams. got selected, mentored and a grant from <mark>iit bombay's e-cell.</mark></p>
+    <p>i learnt how to sell, how to build a product, and how to manage a team.</p>
+    <p className="past-turn">then it failed.</p>
+    <div className="past-takeaway past-takeaway--lesson"><h3>what it taught me</h3><p>speed matters more than i thought. and there's a big difference between okay work and <em>work that wins.</em></p></div>
+    <p className="past-postscript">i learnt more from nebula failing than i could have anywhere else.</p>
+  </section>
+ </Spread>
+ <Spread number={5} title="Wispr Flow work">
+  <section className="page editorial-page"><Heading number="05" kicker="THE FIELD NOTES" title={<>Less claiming.<br/><em>More doing.</em></>}/><p className="deck">[The experiment: what you wanted to learn, who you wanted to reach, and how you tested it.]</p><div className="memo-block"><span className="folio">01 / THE QUESTION</span><p>[The central growth hypothesis.]</p></div><div className="memo-block"><span className="folio">02 / THE READOUT</span><p>[What worked, what didn’t, and what the results actually support.]</p></div><div className="next-test"><span className="folio">03 / WHAT I’D TEST NEXT</span><p>[The next experiment, why it matters, and how you would measure success.]</p></div><small className="data-note">[Results updated: date · observation window]</small></section>
   <section className="page editorial-page"><CreativeNotebook/></section>
  </Spread>
- <Spread number={5} title="Contact">
-  <section className="page editorial-page"><Heading number="05" kicker="THE NEXT CONVERSATION" title={<>Let’s take<br/><em>this further.</em></>}/><p className="deck">[Your closing note to the team.]</p><div className="contact-address">[Your email address]</div><p className="caption">[Preferred way to get in touch]</p></section>
+ <Spread number={6} title="Contact">
+  <section className="page editorial-page"><Heading number="06" kicker="THE NEXT CONVERSATION" title={<>Let’s take<br/><em>this further.</em></>}/><p className="deck">[Your closing note to the team.]</p><div className="contact-address">[Your email address]</div><p className="caption">[Preferred way to get in touch]</p></section>
   <section className="page editorial-page"><span className="folio">THE PRACTICAL DETAILS</span><dl className="logistics">{['Location','Availability','Time zone','Résumé','LinkedIn','Other links'].map(label=><div key={label}><dt>{label}</dt><dd>[Add {label.toLowerCase()}]</dd></div>)}</dl><div className="margin-note">THANK YOU FOR READING <p>— aryan</p></div></section>
  </Spread>
  </>;}

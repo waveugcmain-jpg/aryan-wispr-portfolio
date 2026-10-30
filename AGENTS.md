@@ -27,3 +27,9 @@ Use the final user letter beginning everything on this page, i said out loud. Pr
 Letter density: compact 620px desktop spread, 18px reading type, distinct pivot line and creator proof group; preserve supplied copy.
 
 Section 03 is Building Wave: user-supplied founder story and Linkrunner case study. Preserve pending team size, sales learning, views, reel count and link as placeholders; do not invent results.
+
+Section 04 is Past experiences: Zyra and Nebula, concise strengths and lessons. Wispr work is now 05 and contact 06. Nebula facts and personal lessons await user input; keep explicit placeholders.
+
+Nebula facts supplied: founded digital workspace for remote startup teams; selected, mentored, granted funding by IIT Bombay E-Cell; failed venture; learned selling, product building, team management, speed and the difference between okay work and winning work.
+
+Final section 04 title: Before Wave. Use supplied Zyra growth & creative strategy / 1 year and Nebula founder copy; Zyra lesson remains explicitly pending.
