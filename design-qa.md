@@ -20,3 +20,5 @@ Opening animation: inspected midpoint and final frame. Fixed backface mirroring 
 Timing refinement: all entrance tracks share 1000ms delay and 2800ms duration with backwards fill, so the closed state holds during the delay. Removed the old internal 12% hold. Reduced-motion override retained.
 
 Verified in preview: cover-open is active with 1s delay, initial identity transform and final 180-degree rotation; cover becomes hidden and letter opacity reaches 1. Removed the fade override per explicit user direction.
+
+Refined spread: verified cover text, initial letter opacity 0, reveal delay 3.85s after 1s+2.8s hinge; settled notebook transform identity and centered. Mobile 375px has no horizontal overflow. Evidence qa/refined-spread.jpg.

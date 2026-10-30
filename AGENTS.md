@@ -17,3 +17,5 @@ Ask bar sits above tabs. On load the red cover opens over 1.8 seconds; reduced-m
 Opening timing: automatic one-second closed hold, followed by a slow 2.8-second opening. No click or scroll trigger.
 
 User explicitly requests the physical right-to-left hinge in this preview, replacing the reduced-motion fade. Keep the one-second hold and slow cover rotation.
+
+Refinement: remove floating placeholder cards; use quieter ivory paper and consistent rust tabs. Cover reads aryan X wisprflow. Letter and illustrations appear only after the 3.8-second opening sequence finishes.
