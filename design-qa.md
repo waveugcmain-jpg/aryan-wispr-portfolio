@@ -26,3 +26,5 @@ Refined spread: verified cover text, initial letter opacity 0, reveal delay 3.85
 Five-chapter pass: verified 5 chapter elements, zero removed illustrations, active Wispr tab after jump, creative 02 selection, and layouts at 1440/768/375. Tablet and phone reported no horizontal overflow. Media slots are placeholders; actual playback awaits assets. Screenshot: qa/wispr-chapter.jpg.
 
 Final letter update: confirmed new letter rendered, reels + views navigates to chapter 4, scene top is 0 at desktop and phone widths, no overflow at 1440/768/375. Evidence qa/final-letter.jpg.
+
+Letter rhythm: desktop spread measured 619px, no horizontal overflow at 1440 or 375px, phone text 18px. Evidence qa/lighter-letter.jpg.

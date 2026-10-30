@@ -59,8 +59,9 @@ export function App() {
           <div className="letter letter--final">
             <h1 className="letter-opening">everything on this page, i <mark className="highlight-purple">said out loud</mark> and built using <mark className="highlight-green">wispr flow.</mark></h1>
             <p>but this opening letter was the hardest part. i wanted my application to be cinematic, the one that makes you say "wow".</p>
-            <p>and i realised no portfolio can do that. <em className="letter-turn">only real work can.</em></p>
-            <p>so instead of boring y'all with buzzwords, i went ahead, <mark className="highlight-green">signed 3 indian creators</mark>, negotiated with them, <mark className="highlight-purple">paid them out of my own pocket</mark>, and published their reels on instagram. they're live, and you can watch them right here. <button className="letter-proof proof-link" onClick={()=>go(3)}>[reels + views →]</button></p>
+            <p className="letter-pivot">and i realised no portfolio can do that.<br/><em className="letter-turn">only real work can.</em></p>
+            <p className="letter-action">so instead of boring y'all with buzzwords, i went ahead, <mark className="highlight-green">signed 3 indian creators</mark>, negotiated with them, <mark className="highlight-purple">paid them out of my own pocket</mark>, and published their reels on instagram.</p>
+            <p className="letter-reels">they're live, and you can watch them right here.<br/><button className="letter-proof proof-link" onClick={()=>go(3)}>[reels + views →]</button></p>
             <p className="letter-aside">nobody asked me to do this (well, you kinda did).</p>
           </div>
           <span className="page-number" aria-hidden="true">01</span>
@@ -68,7 +69,7 @@ export function App() {
         <section className="page page--contents" aria-label="Letter, continued">
           <div className="letter letter--final">
             <p>but <mark className="highlight-purple">i like to win.</mark> i like to differentiate. and this part was easy for me, because <mark className="highlight-green">i run wave</mark>, a viral growth agency where we launch large ugc programs for brands.</p>
-            <p>before that, i used to fall asleep thinking about what goes viral (i know, kinda sad), and wrote <mark className="highlight-green">200+ ad scripts</mark> for brands like adani, meesho, country delight, vama and goodscore.</p>
+            <p className="letter-history">before that, i used to fall asleep thinking about what goes viral (i know, kinda sad), and wrote <mark className="highlight-green">200+ ad scripts</mark> for brands like adani, meesho, country delight, vama and goodscore.</p>
             <p>i'm <mark className="highlight-purple">stubborn in a useful way.</mark> if something doesn't work, i keep poking at it until it does. and being a founder, <mark className="highlight-green">i don't wait for anyone</mark> to tell me what to do.</p>
             <p className="letter-game">okay, enough boring y'all. let's play a game. try aiming your mouse at me :)</p>
             <p className="letter-signature">— aryan</p>

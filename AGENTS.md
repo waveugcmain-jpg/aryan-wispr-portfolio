@@ -23,3 +23,5 @@ Refinement: remove floating placeholder cards; use quieter ivory paper and consi
 Five scroll-linked chapters now authorized and implemented. Keep existing letter; new content remains bracketed placeholders. No alpine or coffee illustrations. Sticky tabs and Previous/Next navigate chapters; Wispr creative data lives in src/content/creatives.js.
 
 Use the final user letter beginning everything on this page, i said out loud. Preserve its wording. Highlight selected phrases in lavender and sage green. The top brown strip was margin collapse; .home display:flow-root keeps the scene at y=0.
+
+Letter density: compact 620px desktop spread, 18px reading type, distinct pivot line and creator proof group; preserve supplied copy.
