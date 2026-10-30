@@ -335,3 +335,33 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 .letter--final .letter-signature { font-size:27px; margin:18px 0 0; }
 @media(min-width:701px) and (max-width:1050px) { .chapter--first .page { padding:32px 26px 48px; }.letter--final { font-size:17px; }.letter--final .letter-opening { font-size:22px; }.letter--final .letter-turn { font-size:23px; } }
 @media(max-width:700px) { .chapter--first .page { padding:32px 27px 35px; }.letter--final { font-size:18px; line-height:1.5; }.letter--final .letter-opening { font-size:23px; }.letter--final .letter-turn { font-size:25px; }.letter--final .letter-aside { font-size:16px; }.chapter--first .page--contents { padding-top:30px; padding-bottom:48px; } }
+
+/* Building Wave: founder notes opposite a concise client brief. */
+.wave-page,.wave-case { font:18px/1.45 var(--font-display); padding:42px 42px 65px; }
+.wave-page .chapter-heading h2 { font-size:48px; margin:18px 0 5px; }
+.wave-page .chapter-heading h2 em { color:var(--forest); }
+.wave-page .wave-intro { font-style:italic; font-size:23px; margin:0 0 20px; color:#54624f; }
+.wave-page .wave-aside { font-size:16px; font-style:italic; color:#63566e; padding-left:13px; border-left:2px solid #cbb5df; margin:18px 0 24px; }
+.wave-page .wave-bridge { margin-bottom:23px; }
+.wave-role { margin-top:22px; }
+.wave-role h3 { font:10px/1.6 var(--font-mono); letter-spacing:1px; color:#4b5c48; }
+.wave-role p { margin:9px 0 0; }
+.wave-role mark { color:inherit; background:#dce6d4; padding:0 2px; }
+.copy-placeholder { color:#74647f; }
+.wave-page .wave-closing { font-size:21px; margin:28px 0 0; }
+.wave-closing em { color:#4b365e; background:linear-gradient(transparent 55%,#e5daf0 55%); }
+.wave-case .wave-client { display:flex; justify-content:space-between; align-items:center; font:400 49px/1.15 var(--font-display); letter-spacing:-1.7px; margin:21px 0 10px; }
+.wave-client span { font-size:29px; color:#59704f; }
+.wave-client-description { color:#64665c; }
+.wave-brief { margin:29px 0 25px; padding:22px 25px; background:#e6ebdf; border-left:2px solid #63785b; }
+.wave-brief p { font:400 39px/1.08 var(--font-display); margin:13px 0 14px; color:#294537; }
+.wave-brief strong { font-weight:400; }.wave-brief em { font-weight:400; }
+.wave-brief > span:last-child { font-size:16px; }
+.wave-setup h4,.wave-status h4 { margin:0 0 10px; font-weight:400; }
+.wave-status { border-top:1px solid #dad5c7; padding-top:20px; margin-top:24px; }
+.wave-results { display:flex; flex-wrap:wrap; gap:15px 28px; color:#685276; }
+.wave-results small { display:block; font:9px/1.6 var(--font-mono); color:#65665d; margin-top:4px; }
+.wave-pending { display:inline-flex; flex-direction:column; gap:6px; margin-top:12px; color:#4b365e; font-size:18px; }
+.wave-pending small { font:9px var(--font-mono); color:#797367; }
+@media(min-width:701px) and (max-width:1050px) { .wave-page,.wave-case { padding:34px 25px 60px; font-size:17px; }.wave-page .chapter-heading h2 { font-size:38px; }.wave-case .wave-client { font-size:40px; }.wave-brief { padding:20px; } }
+@media(max-width:700px) { .wave-page,.wave-case { padding:33px 26px 45px; }.wave-page .chapter-heading h2 { font-size:42px; }.wave-case .wave-client { font-size:43px; }.wave-case { border-top:1px solid #ded8ca; }.wave-page .wave-closing { margin-bottom:4px; } }

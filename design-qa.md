@@ -28,3 +28,5 @@ Five-chapter pass: verified 5 chapter elements, zero removed illustrations, acti
 Final letter update: confirmed new letter rendered, reels + views navigates to chapter 4, scene top is 0 at desktop and phone widths, no overflow at 1440/768/375. Evidence qa/final-letter.jpg.
 
 Letter rhythm: desktop spread measured 619px, no horizontal overflow at 1440 or 375px, phone text 18px. Evidence qa/lighter-letter.jpg.
+
+Building Wave: replaced section 03 placeholders with founder story and Linkrunner brief. Checked at 375, 768, 1440px: no horizontal overflow. Production build and hosting preparation pass. Screenshot: qa/building-wave.jpg. Missing numbers, sales learning and reel URL remain marked placeholders.

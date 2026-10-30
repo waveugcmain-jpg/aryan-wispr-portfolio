@@ -25,3 +25,5 @@ Five scroll-linked chapters now authorized and implemented. Keep existing letter
 Use the final user letter beginning everything on this page, i said out loud. Preserve its wording. Highlight selected phrases in lavender and sage green. The top brown strip was margin collapse; .home display:flow-root keeps the scene at y=0.
 
 Letter density: compact 620px desktop spread, 18px reading type, distinct pivot line and creator proof group; preserve supplied copy.
+
+Section 03 is Building Wave: user-supplied founder story and Linkrunner case study. Preserve pending team size, sales learning, views, reel count and link as placeholders; do not invent results.

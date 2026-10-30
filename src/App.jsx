@@ -7,7 +7,7 @@ import '@fontsource/manrope/latin-400.css';
 import '@fontsource/manrope/latin-500.css';
 import '@fontsource/ibm-plex-mono/latin-400.css';
 
-const sections = ['A letter', 'My story', 'Experiences & projects', 'Wispr Flow work', 'contact me'];
+const sections = ['A letter', 'My story', 'Building Wave', 'Wispr Flow work', 'contact me'];
 
 function TrainScene() {
   return <div className="scene" aria-hidden="true"><div className="scene__frame">
@@ -98,9 +98,26 @@ function InsideChapters(){return <>
   <section className="page editorial-page"><Heading number="02" kicker="THE PERSON" title={<>A little<br/><em>backstory.</em></>}/><p className="deck">[Your story, in your own words. The starting point, the turning point, and what you’re pursuing now.]</p><blockquote>[One belief that shapes how you work.]</blockquote><div className="margin-note">A PERSONAL NOTE <p>[A detail people wouldn’t find on your résumé.]</p></div></section>
   <section className="page editorial-page"><Placeholder label="Portrait or a meaningful photograph"/><div className="caption">[Where this was taken · why it matters]</div><div className="timeline">{['Where it began','What changed','Where I’m going'].map((t,i)=><div key={t}><span>0{i+1}</span><div><h3>{t}</h3><p>[Add your story here.]</p></div></div>)}</div></section>
  </Spread>
- <Spread number={3} title="Experiences & projects">
-  <section className="page editorial-page"><Heading number="03" kicker="THE TRACK RECORD" title={<>Work with<br/><em>something to show.</em></>}/><p className="deck">[A short introduction connecting your experience to the kind of work you want to do next.]</p>{[1,2].map(n=><div className="experience" key={n}><span className="folio">[DATES] / 0{n}</span><h3>[Role] <span>at [Company]</span></h3><p>[What you owned, the challenge, and your contribution.]</p><strong>[Verified outcome or result]</strong></div>)}</section>
-  <section className="page editorial-page"><span className="folio">SELECTED PROJECT / 01</span><Placeholder label="Project screenshot"/><h3 className="project-title">[Project name]</h3><p>[The problem you chose to solve, and who it helped.]</p><dl className="project-facts"><div><dt>My role</dt><dd>[Contribution]</dd></div><div><dt>The result</dt><dd>[Verified impact]</dd></div></dl><span className="pending-link">[Project link →]</span><div className="margin-note">NEXT PROJECT <p>[A second project can be added as another spread.]</p></div></section>
+ <Spread number={3} title="Building Wave">
+  <section className="page editorial-page wave-page">
+    <Heading number="03" kicker="building wave" title={<>i started <em>wave.</em></>}/>
+    <p className="wave-intro">a viral growth agency.</p>
+    <p>consumer apps and d2c brands hire us when they want to go viral, have an always-on organic channel. we help them become top of mind and drive conversions.</p>
+    <p className="wave-aside">similar to the organic ugc and paid ugc program hector from wispr flow ran (yes, i stalk).</p>
+    <p className="wave-bridge">being a founder means i've done every job in the building. two of them taught me the most:</p>
+    <div className="wave-role"><h3>01 / creative strategy</h3><p>i write the scripts, and more importantly, <mark>i test them.</mark> hooks, formats, angles. we set up attribution so we know which reels bring users, not just views, then double down on what works and kill what doesn't.</p></div>
+    <div className="wave-role"><h3>02 / sales</h3><p>i built a linkedin outbound motion from zero, closed our clients myself, and manage a team of <span className="copy-placeholder">[number]</span>. biggest lesson: <span className="copy-placeholder">[one real learning from selling]</span>.</p></div>
+    <p className="wave-closing">so yes, i've owned a growth channel.<br/><em>i just had to build it first.</em></p>
+  </section>
+  <section className="page editorial-page wave-case">
+    <span className="folio">case study / 01</span>
+    <h3 className="wave-client">linkrunner<span aria-hidden="true">↗</span></h3>
+    <p className="wave-client-description">attribution for app marketers.<br/>backed by titan capital and 2am vc.</p>
+    <div className="wave-brief"><span className="folio">the brief</span><p><strong>100 reels.</strong><br/><em>6 weeks.</em></p><span>reach growth marketers in india.</span></div>
+    <div className="wave-setup"><h4 className="folio">the setup</h4><p>two pages. one teaches marketing in 60 seconds, the other runs on personality and a product demo. every reel scripted, every shoot with two hook takes.</p></div>
+    <div className="wave-status"><h4 className="folio">where it stands</h4><p>honestly? we went live 3 days ago. no viral moment yet <em>(give it a week).</em></p><p className="wave-results"><span>[views so far] <small>views</small></span><span>[reels posted] <small>reels live</small></span></p></div>
+    <span className="wave-pending">[watch the reels →]<small>link to be added</small></span>
+  </section>
  </Spread>
  <Spread number={4} title="Wispr Flow work">
   <section className="page editorial-page"><Heading number="04" kicker="THE FIELD NOTES" title={<>Less claiming.<br/><em>More doing.</em></>}/><p className="deck">[The experiment: what you wanted to learn, who you wanted to reach, and how you tested it.]</p><div className="memo-block"><span className="folio">01 / THE QUESTION</span><p>[The central growth hypothesis.]</p></div><div className="memo-block"><span className="folio">02 / THE READOUT</span><p>[What worked, what didn’t, and what the results actually support.]</p></div><div className="next-test"><span className="folio">03 / WHAT I’D TEST NEXT</span><p>[The next experiment, why it matters, and how you would measure success.]</p></div><small className="data-note">[Results updated: date · observation window]</small></section>
