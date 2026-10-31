@@ -1,6 +1,7 @@
+import { AskAryan } from './AskAryan.jsx';
 import { creatives } from './content/creatives.js';
 import { ArrowLeft, ArrowRight, ArrowUp, Microphone } from '@phosphor-icons/react';
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useLayoutEffect, useState } from 'react';
 import '@fontsource/newsreader/latin-400.css';
 import '@fontsource/newsreader/latin-400-italic.css';
 import '@fontsource/manrope/latin-400.css';
@@ -38,22 +39,73 @@ function FolderNavigation({active, go}) {
 
 export function App() {
   const [active,setActive]=useState(0);
-  const go=(index)=>document.getElementById(`chapter-${index+1}`)?.scrollIntoView({behavior:window.matchMedia('(prefers-reduced-motion: reduce)').matches?'instant':'smooth',block:'start'});
+  const [reduced,setReduced]=useState(()=>sessionStorage.getItem('portfolio-motion')==='off');
+  useEffect(()=>{sessionStorage.setItem('portfolio-motion',reduced?'off':'on');},[reduced]);
+  const [intro,setIntro]=useState(()=>sessionStorage.getItem('portfolio-motion')!=='off');
+  const [opening,setOpening]=useState(true);
+  const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null);
+  const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.current.push(id);return id;};
+  useEffect(()=>{if(!intro)return;const id=setTimeout(()=>setIntro(false),2600);return()=>clearTimeout(id);},[intro]);
+  useEffect(()=>{if(!intro){const id=setTimeout(()=>setOpening(false),reduced?0:4000);return()=>clearTimeout(id);}},[intro,reduced]);
+  useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
+  useLayoutEffect(()=>{
+    if(!deck.current)return;
+    deck.current.querySelectorAll(':scope > .chapter').forEach((el,i)=>{el.hidden=i!==active;el.inert=i!==active;});
+  },[active,intro]);
+  const go=(index)=>{
+    if(intro||opening||busy.current||index===active||index<0||index>=sections.length)return;
+    const host=deck.current, pages=[...host.querySelectorAll(':scope > .chapter')];
+    if(reduced){setActive(index);return;}
+    busy.current=true;
+    const from=pages[active],to=pages[index],forward=index>active;
+    to.hidden=false;to.inert=true;
+    const height=Math.max(from.offsetHeight,to.offsetHeight);
+    to.classList.add('turn-destination');
+    host.style.height=height+'px';
+    const mobile=window.matchMedia('(max-width:700px)').matches;
+    const sheet=document.createElement('div');sheet.className='turn-sheet '+(forward?'turn-forward':'turn-backward')+(mobile?' turn-mobile':'');sheet.setAttribute('aria-hidden','true');sheet.inert=true;
+    const face=(source,back)=>{
+      const panel=document.createElement('div');panel.className='turn-face '+(back?'turn-face--back':'turn-face--front');
+      const content=mobile?source.cloneNode(true):source.querySelectorAll(':scope > .page')[forward?(back?0:1):(back?1:0)].cloneNode(true);
+      if(!mobile){const original=source.querySelectorAll(':scope > .page')[forward?(back?0:1):(back?1:0)];content.style.padding=getComputedStyle(original).padding;}
+      content.removeAttribute('id');content.querySelectorAll('[id]').forEach(el=>el.removeAttribute('id'));content.hidden=false;content.classList.remove('turn-destination');
+      panel.append(content);sheet.append(panel);
+    };
+    face(from,false);face(to,true);host.append(sheet);
+    host.classList.add('is-turning',forward?'is-forward':'is-backward');
+    from.classList.add('turn-source');
+    const finish=()=>{
+      sheet.remove();from.classList.remove('turn-source');to.classList.remove('turn-destination');host.classList.remove('is-turning','is-forward','is-backward');host.style.height='';setActive(index);busy.current=false;
+    };
+    sheet.addEventListener('animationend',e=>{if(e.target===sheet)finish();},{once:true});
+    later(()=>{if(sheet.isConnected)finish();},3200);
+  };
   useEffect(()=>{
-    const observer=new IntersectionObserver(entries=>{ entries.forEach(entry=>{if(entry.isIntersecting){setActive(Number(entry.target.dataset.chapter));entry.target.classList.add('chapter--seen');}}); },{rootMargin:'-15% 0px -55% 0px',threshold:0});
-    document.querySelectorAll('[data-chapter]').forEach(el=>observer.observe(el));
-    return ()=>observer.disconnect();
-  },[]);
+    let accumulated=0,last=0;
+    const wheel=e=>{
+      if(e.ctrlKey||e.target.closest('input,textarea,video'))return;
+      const atBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-4;
+      const atTop=window.scrollY<=4;
+      if((e.deltaY>0&&atBottom)||(e.deltaY<0&&atTop)){
+        if(busy.current){e.preventDefault();return;}
+        if(Date.now()-last>200)accumulated=0;last=Date.now();accumulated+=e.deltaY;
+        if(Math.abs(accumulated)>90){go(active+(accumulated>0?1:-1));accumulated=0;}
+      }
+    };
+    const key=e=>{if(e.target.closest('input,textarea,video'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(active+(e.key==='ArrowRight'?1:-1));}};
+    window.addEventListener('wheel',wheel,{passive:false});window.addEventListener('keydown',key);
+    return()=>{window.removeEventListener('wheel',wheel);window.removeEventListener('keydown',key);};
+  },[active,intro,opening,reduced]);
 
-  return <main className="home">
+  return <main className={`home ${reduced?"motion-reduced":"motion-full"}`}>
     <TrainScene />
+    <div className="scene-tools"><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;setReduced(false);setActive(0);setOpening(true);setIntro(true);}}>Replay opening</button></div>
+    {intro&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
 
-    <div className="journal-stage">
-      <div className="ask-preview" aria-label="Ask Aryan — design preview">
-        <div className="ask-input"><input aria-label="Ask Aryan any question — preview only" placeholder="Ask Aryan any question." readOnly /><button type="button" disabled aria-label="Microphone — coming later"><Microphone size={21} weight="light" /></button><button className="ask-send" type="button" disabled aria-label="Send — coming later"><ArrowUp size={22} weight="light" /></button></div>
-        <div className="ask-chips">{['Top skills?', 'Best project?', 'Why Wispr Flow?'].map(q=><button key={q} type="button" disabled>{q}</button>)}</div>
-      </div>
+    <div className={`journal-stage ${intro?"stage-waiting":"stage-arrived"} ${opening?"book-opening":"book-ready"}`} inert={intro||undefined}>
+      <AskAryan go={go} reduced={reduced} />
       <FolderNavigation active={active} go={go} />
+      <div className="book-deck" ref={deck} key={intro?'waiting':'arrived'} onTouchStart={e=>{touch.current={x:e.touches[0].clientX,y:e.touches[0].clientY};}} onTouchEnd={e=>{if(!touch.current)return;const dx=e.changedTouches[0].clientX-touch.current.x,dy=e.changedTouches[0].clientY-touch.current.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)go(active+(dx<0?1:-1));touch.current=null;}}>
       <article id="chapter-1" data-chapter="0" className="notebook chapter chapter--first" aria-label="Aryan's portfolio notebook">
         <section className="page page--letter" aria-label="Introduction">
           <div className="letter letter--final">
@@ -80,6 +132,8 @@ export function App() {
         <div className="opening-cover" aria-hidden="true"><div className="opening-cover__front"><span>aryan <i>X</i> wisprflow</span></div><div className="opening-cover__back" /></div>
       </article>
       <InsideChapters />
+      </div>
+      <p className="reading-status" aria-live="polite">{String(active+1).padStart(2,'0')} / 06 · {sections[active]}</p>
       <nav className="page-controls" aria-label="Page navigation">
         <button type="button" disabled={active===0} onClick={()=>go(active-1)}><ArrowLeft size={18} weight="light" aria-hidden="true" /> Previous Page</button>
         <span className="page-controls__divider" aria-hidden="true" />

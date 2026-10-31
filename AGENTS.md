@@ -33,3 +33,7 @@ Section 04 is Past experiences: Zyra and Nebula, concise strengths and lessons. 
 Nebula facts supplied: founded digital workspace for remote startup teams; selected, mentored, granted funding by IIT Bombay E-Cell; failed venture; learned selling, product building, team management, speed and the difference between okay work and winning work.
 
 Final section 04 title: Before Wave. Use supplied Zyra growth & creative strategy / 1 year and Nebula founder copy; Zyra lesson remains explicitly pending.
+
+Latest motion direction supersedes stacked chapters: one book deck with two-sided right-to-left turns, backward navigation, arrow keys and touch swipes. Wheel turns only at reading boundaries. Short skippable train intro precedes cover opening. Red material has a fine dot texture. Reduced motion skips physical transitions.
+
+Ask Aryan is now functional via server/ask.mjs and content/aryan.md. Native textarea, speech fallback, suggested questions, streamed notebook matches and optional server-only OpenAI connection. Never label deterministic matches as AI. Latest explicit motion request: 2.8-second visible hinge, settle on animationend; motion enabled initially with user-controlled session-persistent off toggle.
