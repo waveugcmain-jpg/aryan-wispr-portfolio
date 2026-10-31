@@ -9,11 +9,13 @@ function Movable({ className, label, children }) {
  </div>;
 }
 export function RoomScene(){return <>
- <div className="room-scene" aria-hidden="true"><img src="/assets/film-room.webp" alt="" fetchPriority="high"/></div>
+ <div className="room-scene" aria-hidden="true"><img src="/assets/founder-room.webp" alt="" fetchPriority="high"/></div>
  <aside className="room-mementos" aria-label="Notes on the wall">
  <Movable className="room-note--portrait" label="portrait card"><div className="room-portrait"><span>[your photo here]</span></div><p>aryan, off the page.</p></Movable>
  <Movable className="room-note--memo" label="note about Aryan"><span className="room-note__eyebrow">A NOTE ABOUT ME</span><p>i run <em>wave.</em><br/>i like to win.<br/>i like to differentiate.</p><small>— aryan</small></Movable>
  <Movable className="room-note--ticket" label="application ticket"><span>ONE APPLICATION</span><strong>aryan ×<br/>wispr flow</strong><small>GROWTH / FIELD NOTES</small></Movable>
  </aside>
  </>;}
+
+
 
