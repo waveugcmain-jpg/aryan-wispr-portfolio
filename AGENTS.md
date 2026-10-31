@@ -37,3 +37,6 @@ Final section 04 title: Before Wave. Use supplied Zyra growth & creative strateg
 Latest motion direction supersedes stacked chapters: one book deck with two-sided right-to-left turns, backward navigation, arrow keys and touch swipes. Wheel turns only at reading boundaries. Short skippable train intro precedes cover opening. Red material has a fine dot texture. Reduced motion skips physical transitions.
 
 Ask Aryan is now functional via server/ask.mjs and content/aryan.md. Native textarea, speech fallback, suggested questions, streamed notebook matches and optional server-only OpenAI connection. Never label deterministic matches as AI. Latest explicit motion request: 2.8-second visible hinge, settle on animationend; motion enabled initially with user-controlled session-persistent off toggle.
+
+Music: official Spotify Innerbloom embed above Ask Aryan; request autoplay once on ready, keep native play/pause and Spotify link. Browser/provider rules may prevent autoplay. Page turns use a continuous curved strip mesh over three seconds, with real page content on both sides.
+Latest: supplied local Innerbloom MP3 replaces Spotify preview. preload none; playback attempted after opening (7s), native audio state drives controls. Stage moved upward.

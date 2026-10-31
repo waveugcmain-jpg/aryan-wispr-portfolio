@@ -1,3 +1,5 @@
+import { MusicPlayer } from './MusicPlayer.jsx';
+import { curveSheet } from './pageTurn.js';
 import { AskAryan } from './AskAryan.jsx';
 import { creatives } from './content/creatives.js';
 import { ArrowLeft, ArrowRight, ArrowUp, Microphone } from '@phosphor-icons/react';
@@ -77,8 +79,8 @@ export function App() {
     const finish=()=>{
       sheet.remove();from.classList.remove('turn-source');to.classList.remove('turn-destination');host.classList.remove('is-turning','is-forward','is-backward');host.style.height='';setActive(index);busy.current=false;
     };
-    sheet.addEventListener('animationend',e=>{if(e.target===sheet)finish();},{once:true});
-    later(()=>{if(sheet.isConnected)finish();},3200);
+    curveSheet(sheet,forward,finish);
+    later(()=>{if(sheet.isConnected)finish();},3600);
   };
   useEffect(()=>{
     let accumulated=0,last=0;
@@ -103,6 +105,7 @@ export function App() {
     {intro&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
 
     <div className={`journal-stage ${intro?"stage-waiting":"stage-arrived"} ${opening?"book-opening":"book-ready"}`} inert={intro||undefined}>
+      <MusicPlayer />
       <AskAryan go={go} reduced={reduced} />
       <FolderNavigation active={active} go={go} />
       <div className="book-deck" ref={deck} key={intro?'waiting':'arrived'} onTouchStart={e=>{touch.current={x:e.touches[0].clientX,y:e.touches[0].clientY};}} onTouchEnd={e=>{if(!touch.current)return;const dx=e.changedTouches[0].clientX-touch.current.x,dy=e.changedTouches[0].clientY-touch.current.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)go(active+(dx<0?1:-1));touch.current=null;}}>
@@ -203,3 +206,4 @@ function InsideChapters(){return <>
  </Spread>
  </>;}
 function CreativeNotebook(){const [selected,setSelected]=useState(0);const reel=creatives[selected];return <><span className="folio">EXPERIMENT LOG / {String(selected+1).padStart(2,'0')}</span><div className="creative-tabs" role="group" aria-label="Choose creative">{creatives.map((r,i)=><button key={r.id} aria-pressed={selected===i} onClick={()=>setSelected(i)}>0{i+1}</button>)}</div><h3 className="project-title">{reel.hook}</h3><div className="creative-body">{reel.video?<video key={reel.video} src={reel.video} controls playsInline preload="none" aria-label={reel.hook}/>:<Placeholder portrait label="Vertical reel video"/>}<div><span className="folio">HYPOTHESIS</span><p>{reel.hypothesis}</p><span className="folio">AUDIENCE & ANGLE</span><p>{reel.audience}</p>{reel.url?<a href={reel.url} target="_blank" rel="noreferrer">Original reel ↗</a>:<span className="pending-link">[Original reel link ↗]</span>}</div></div><dl className="metrics">{Object.entries(reel.metrics).map(([key,value])=><div key={key}><dd>{value??'—'}</dd><dt>{key}</dt></div>)}</dl><div className="memo-block"><span className="folio">WHAT I LEARNED</span><p>{reel.learning}</p></div></>;}
+
