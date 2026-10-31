@@ -1,3 +1,4 @@
+import { RoomScene } from './RoomScene.jsx';
 import { MusicPlayer } from './MusicPlayer.jsx';
 import { curveSheet } from './pageTurn.js';
 import { AskAryan } from './AskAryan.jsx';
@@ -40,10 +41,11 @@ function FolderNavigation({active, go}) {
 }
 
 export function App() {
+  const [room,setRoom]=useState(()=>new URLSearchParams(window.location.search).get('scene')!=='train');
   const [active,setActive]=useState(0);
   const [reduced,setReduced]=useState(()=>sessionStorage.getItem('portfolio-motion')==='off');
   useEffect(()=>{sessionStorage.setItem('portfolio-motion',reduced?'off':'on');},[reduced]);
-  const [intro,setIntro]=useState(()=>sessionStorage.getItem('portfolio-motion')!=='off');
+  const [intro,setIntro]=useState(()=>new URLSearchParams(window.location.search).get('scene')==='train' && sessionStorage.getItem('portfolio-motion')!=='off');
   const [opening,setOpening]=useState(true);
   const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null);
   const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.current.push(id);return id;};
@@ -99,9 +101,9 @@ export function App() {
     return()=>{window.removeEventListener('wheel',wheel);window.removeEventListener('keydown',key);};
   },[active,intro,opening,reduced]);
 
-  return <main className={`home ${reduced?"motion-reduced":"motion-full"}`}>
-    <TrainScene />
-    <div className="scene-tools"><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;setReduced(false);setActive(0);setOpening(true);setIntro(true);}}>Replay opening</button></div>
+  return <main className={`home ${room?"room-version":"train-version"} ${reduced?"motion-reduced":"motion-full"}`}>
+    {room?<RoomScene/>:<TrainScene />}
+    <div className="scene-tools"><button onClick={()=>{setRoom(!room);setIntro(false);const url=new URL(window.location.href);url.searchParams.set("scene",room?"train":"room");window.history.replaceState(null,"",url);}}>{room?"Train version ↗":"Room version ↗"}</button><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;setReduced(false);setActive(0);setOpening(true);setIntro(!room);}}>Replay opening</button></div>
     {intro&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
 
     <div className={`journal-stage ${intro?"stage-waiting":"stage-arrived"} ${opening?"book-opening":"book-ready"}`} inert={intro||undefined}>
@@ -206,4 +208,5 @@ function InsideChapters(){return <>
  </Spread>
  </>;}
 function CreativeNotebook(){const [selected,setSelected]=useState(0);const reel=creatives[selected];return <><span className="folio">EXPERIMENT LOG / {String(selected+1).padStart(2,'0')}</span><div className="creative-tabs" role="group" aria-label="Choose creative">{creatives.map((r,i)=><button key={r.id} aria-pressed={selected===i} onClick={()=>setSelected(i)}>0{i+1}</button>)}</div><h3 className="project-title">{reel.hook}</h3><div className="creative-body">{reel.video?<video key={reel.video} src={reel.video} controls playsInline preload="none" aria-label={reel.hook}/>:<Placeholder portrait label="Vertical reel video"/>}<div><span className="folio">HYPOTHESIS</span><p>{reel.hypothesis}</p><span className="folio">AUDIENCE & ANGLE</span><p>{reel.audience}</p>{reel.url?<a href={reel.url} target="_blank" rel="noreferrer">Original reel ↗</a>:<span className="pending-link">[Original reel link ↗]</span>}</div></div><dl className="metrics">{Object.entries(reel.metrics).map(([key,value])=><div key={key}><dd>{value??'—'}</dd><dt>{key}</dt></div>)}</dl><div className="memo-block"><span className="folio">WHAT I LEARNED</span><p>{reel.learning}</p></div></>;}
+
 

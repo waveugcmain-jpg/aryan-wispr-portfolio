@@ -498,3 +498,32 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 .ask-preview { margin-bottom:23px; }
 @media(max-width:700px) { .journal-stage { margin-top:84px; }.ask-preview { margin-bottom:19px; } }
 .music-track { display:flex; gap:12px; align-items:center; color:#28362e; }.music-art { display:grid; place-items:center; width:47px; height:47px; border-radius:9px; background:linear-gradient(145deg,#647265,#222c28); color:#eee8d8; font-size:32px; }.music-track strong { display:block; font:500 14px var(--font-body); }.music-track small { display:block; margin-top:5px; font:10px var(--font-body); }.music-track button { margin-left:auto; border:1px solid #fff7; border-radius:50%; background:#fff6; width:38px; height:38px; cursor:pointer; color:#28362e; }.music-progress { display:flex; gap:9px; align-items:center; margin-top:12px; font:9px var(--font-mono); color:#344037; }.music-progress input { min-width:0; flex:1; height:3px; accent-color:#536753; cursor:pointer; }
+
+/* Version two: an analog room, with the live notebook on its desk. */
+.room-version { background:#182c24; }
+.room-scene { position:absolute; inset:0; z-index:-1; background:#192c25; }
+.room-scene img { width:100%; height:100%; min-height:100svh; object-fit:cover; object-position:center top; position:absolute; inset:0; }
+.room-version .journal-stage { margin-top:235px; width:min(1050px,calc(100% - 90px)); }
+.room-version .music-player { background:#d9ddd124; border-color:#f6ecd13b; color:#f5ead7; backdrop-filter:blur(18px); }
+.room-version .music-player__caption,.room-version .music-track,.room-version .music-progress { color:#f5ead7; }
+.room-version .music-track button { color:#fff1d9; background:#fff2; }
+.room-version .scene-tools button { color:#efeadc; background:#172d25ba; border-color:#eadbb643; }
+.room-version .reading-status { color:#eee4d0; }
+.room-version .notebook { box-shadow:0 35px 65px #090e0cb3,0 8px 12px #0006,inset 0 0 0 3px #ffffff16; }
+.room-mementos { position:absolute; inset:0; pointer-events:none; z-index:65; }
+.room-note { position:absolute; pointer-events:auto; box-shadow:3px 9px 16px #090d0a70; transform:translate(var(--drag-x),var(--drag-y)) rotate(var(--tilt)); color:#343b2b; }
+.room-note__handle { display:block; border:0; background:none; width:100%; text-align:right; font:8px var(--font-mono); padding:7px 9px; color:#55594a; cursor:grab; touch-action:none; }
+.room-note__handle:active { cursor:grabbing; }.room-note__handle span { font-size:13px; }
+.room-note--portrait { left:7%; top:70px; width:148px; padding:0 10px 12px; background:#ece6d8; --tilt:-8deg; }
+.room-portrait { height:120px; display:grid; place-items:center; background:#b8beb0; border:1px solid #a2a99a; color:#455143; font:9px var(--font-mono); }
+.room-note--portrait p { font:italic 16px var(--font-display); margin:13px 0 0; }
+.room-note--memo { right:8%; top:100px; width:186px; padding:0 18px 18px; background:#ddd5e2; --tilt:6deg; }
+.room-note__eyebrow { font:8px var(--font-mono); letter-spacing:1px; }
+.room-note--memo p { font:24px/1.2 var(--font-display); margin:17px 0 12px; }.room-note--memo small { font:italic 17px var(--font-display); }
+.room-note--ticket { top:44px; left:37%; width:170px; padding:0 16px 17px; background:#b66248; color:#fff0d3; --tilt:-4deg; border-inline:2px dashed #e5b390; }
+.room-note--ticket span,.room-note--ticket small { display:block; font:8px var(--font-mono); letter-spacing:1px; }.room-note--ticket strong { display:block; font:italic 26px/1 var(--font-display); margin:12px 0; }.room-note--ticket .room-note__handle { color:#ffedda; }
+@media(max-width:1050px) { .room-version .journal-stage { margin-top:250px; width:calc(100% - 48px); }.room-note--portrait { left:5%; }.room-note--memo { right:5%; width:165px; }.room-note--ticket { left:39%; top:70px; width:145px; } }
+@media(max-width:700px) { .room-version .journal-stage { margin-top:268px; width:calc(100% - 28px); }.room-note--portrait { top:79px; left:7%; width:112px; }.room-portrait { height:90px; }.room-note--portrait p { font-size:13px; }.room-note--memo { top:90px; right:7%; width:145px; padding-inline:12px; }.room-note--memo p { font-size:20px; }.room-note--ticket { display:none; }.scene-tools { gap:4px; right:10px; }.scene-tools button { font-size:9px; padding:8px; }.room-scene img { position:fixed; height:100svh; object-position:48% top; } }
+.room-scene img { height:auto; min-height:0; object-fit:contain; }
+@media(max-width:700px) { .room-scene img { height:100svh; object-fit:cover; } }
+@media(max-width:700px) { .room-note--memo { top:78px; }.room-note--memo p { font-size:18px; margin:10px 0 8px; }.room-note--memo small { font-size:15px; }.room-note__eyebrow { font-size:7px; } }
