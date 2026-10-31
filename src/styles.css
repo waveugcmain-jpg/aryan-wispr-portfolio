@@ -531,3 +531,38 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 /* Keep the room behind the complete reading journey, including tall chapters. */
 .room-scene { position:fixed; inset:0; }
 .room-scene img { position:absolute; width:100%; height:100%; min-height:100%; object-fit:cover; object-position:center center; }
+
+/* Preserve the top of the composition: portraits must never be centre-cropped. */
+.room-scene img { object-position:center top; }
+.room-version .room-note--ticket { left:auto; right:3%; top:370px; width:145px; }
+.room-version .room-note--portrait { left:2%; top:340px; }
+.room-version .room-note--memo { right:3%; top:125px; }
+.room-arrival { position:fixed; inset:0; z-index:200; overflow:hidden; background:#17251f; animation:room-arrival-out 650ms ease 1950ms both; }
+.room-arrival > img { width:100%; height:100%; object-fit:cover; object-position:center top; animation:room-camera 2600ms cubic-bezier(.22,.61,.36,1) both; }
+.room-arrival__caption { position:absolute; left:8%; bottom:12%; color:#fff2dc; text-shadow:0 3px 24px #0009; animation:room-caption 1800ms ease both; }
+.room-arrival__caption span { font:10px var(--font-mono); letter-spacing:2px; }
+.room-arrival__caption p { font:italic 52px var(--font-display); margin:16px 0; }
+.room-arrival > button { position:absolute; right:24px; top:24px; padding:11px 18px; background:#f8f0e4e8; border:1px solid #fff7; border-radius:24px; cursor:pointer; color:#283b30; }
+@keyframes room-camera { from { transform:scale(1.035); } to { transform:scale(1); } }
+@keyframes room-arrival-out { to { opacity:0; visibility:hidden; } }
+@keyframes room-caption { 0% { opacity:0; transform:translateY(12px); } 30%,80% { opacity:1; transform:translateY(0); } 100% { opacity:0; } }
+.room-version.motion-full .stage-arrived.book-opening { animation:room-desk-arrive 4300ms cubic-bezier(.22,.61,.36,1) both; }
+@keyframes room-desk-arrive { 0%,18% { transform:translateY(-145px); } 100% { transform:translateY(0); } }
+.room-version .book-opening .music-player,.room-version .book-opening .ask-preview,.room-version .book-opening > .folder-stack { animation:room-tools-arrive 700ms ease 3600ms both; }
+@keyframes room-tools-arrive { from { opacity:0; } to { opacity:1; } }
+.paper-strip__face::after { content:''; position:absolute; inset:0; pointer-events:none; background:linear-gradient(90deg,#342a1b08,#fff8e405); }
+@media(max-width:700px) {
+ .room-scene { background:#261c17 url('/assets/founder-room.webp') center bottom/auto 100% no-repeat; }
+ .room-scene img { height:auto; min-height:0; object-fit:contain; mask-image:linear-gradient(#000 85%,transparent); }
+ .room-version .room-note--portrait { left:5%; top:100px; }
+ .room-version .room-note--memo { right:5%; top:95px; }
+ .room-arrival > img { object-fit:contain; object-position:center top; background:#261c17; }
+ .room-arrival__caption p { font-size:38px; }
+ @keyframes room-desk-arrive { from { transform:translateY(-80px); } to { transform:translateY(0); } }
+}
+.motion-reduced .room-arrival { display:none; }
+.motion-reduced .book-opening .music-player,.motion-reduced .book-opening .ask-preview,.motion-reduced .book-opening > .folder-stack { animation:none; }
+.paper-strip { --paper-shade:.035; }
+.room-arrival > img { transform-origin:center top; }
+.paper-strip__face::after { display:none; }
+.room-version .stage-waiting.book-opening .music-player,.room-version .stage-waiting.book-opening .ask-preview,.room-version .stage-waiting.book-opening > .folder-stack { animation:none; opacity:0; }

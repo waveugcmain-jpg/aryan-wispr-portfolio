@@ -45,12 +45,12 @@ export function App() {
   const [active,setActive]=useState(0);
   const [reduced,setReduced]=useState(()=>sessionStorage.getItem('portfolio-motion')==='off');
   useEffect(()=>{sessionStorage.setItem('portfolio-motion',reduced?'off':'on');},[reduced]);
-  const [intro,setIntro]=useState(()=>new URLSearchParams(window.location.search).get('scene')==='train' && sessionStorage.getItem('portfolio-motion')!=='off');
+  const [intro,setIntro]=useState(()=>sessionStorage.getItem('portfolio-motion')!=='off');
   const [opening,setOpening]=useState(true);
-  const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null);
+  const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null), wheelUnlock=useRef(0);
   const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.current.push(id);return id;};
   useEffect(()=>{if(!intro)return;const id=setTimeout(()=>setIntro(false),2600);return()=>clearTimeout(id);},[intro]);
-  useEffect(()=>{if(!intro){const id=setTimeout(()=>setOpening(false),reduced?0:4000);return()=>clearTimeout(id);}},[intro,reduced]);
+  useEffect(()=>{if(!intro){const id=setTimeout(()=>setOpening(false),reduced?0:4500);return()=>clearTimeout(id);}},[intro,reduced]);
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
   useLayoutEffect(()=>{
     if(!deck.current)return;
@@ -79,7 +79,7 @@ export function App() {
     host.classList.add('is-turning',forward?'is-forward':'is-backward');
     from.classList.add('turn-source');
     const finish=()=>{
-      sheet.remove();from.classList.remove('turn-source');to.classList.remove('turn-destination');host.classList.remove('is-turning','is-forward','is-backward');host.style.height='';setActive(index);busy.current=false;
+      sheet.remove();from.classList.remove('turn-source');to.classList.remove('turn-destination');host.classList.remove('is-turning','is-forward','is-backward');host.style.height='';setActive(index);busy.current=false;wheelUnlock.current=performance.now()+450;
     };
     curveSheet(sheet,forward,finish);
     later(()=>{if(sheet.isConnected)finish();},3600);
@@ -88,12 +88,13 @@ export function App() {
     let accumulated=0,last=0;
     const wheel=e=>{
       if(e.ctrlKey||e.target.closest('input,textarea,video'))return;
+      if(busy.current||intro||opening||performance.now()<wheelUnlock.current){e.preventDefault();return;}
       const atBottom=window.scrollY+window.innerHeight>=document.documentElement.scrollHeight-4;
       const atTop=window.scrollY<=4;
       if((e.deltaY>0&&atBottom)||(e.deltaY<0&&atTop)){
         if(busy.current){e.preventDefault();return;}
         if(Date.now()-last>200)accumulated=0;last=Date.now();accumulated+=e.deltaY;
-        if(Math.abs(accumulated)>90){go(active+(accumulated>0?1:-1));accumulated=0;}
+        if(Math.abs(accumulated)>90){e.preventDefault();go(active+(accumulated>0?1:-1));accumulated=0;}
       }
     };
     const key=e=>{if(e.target.closest('input,textarea,video'))return;if(e.key==='ArrowRight'||e.key==='ArrowLeft'){e.preventDefault();go(active+(e.key==='ArrowRight'?1:-1));}};
@@ -103,8 +104,8 @@ export function App() {
 
   return <main className={`home ${room?"room-version":"train-version"} ${reduced?"motion-reduced":"motion-full"}`}>
     {room?<RoomScene/>:<TrainScene />}
-    <div className="scene-tools"><button onClick={()=>{setRoom(!room);setIntro(false);const url=new URL(window.location.href);url.searchParams.set("scene",room?"train":"room");window.history.replaceState(null,"",url);}}>{room?"Train version ↗":"Room version ↗"}</button><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;setReduced(false);setActive(0);setOpening(true);setIntro(!room);}}>Replay opening</button></div>
-    {intro&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
+    <div className="scene-tools"><button onClick={()=>{setRoom(!room);setIntro(false);const url=new URL(window.location.href);url.searchParams.set("scene",room?"train":"room");window.history.replaceState(null,"",url);}}>{room?"Train version ↗":"Room version ↗"}</button><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;window.scrollTo({top:0,behavior:"instant"});setReduced(false);setActive(0);setOpening(true);setIntro(true);}}>Replay opening</button></div>
+    {intro&&room&&<div className="room-arrival"><img src="/assets/founder-room.webp" alt=""/><div className="room-arrival__caption"><span>ARYAN × WISPR FLOW</span><p>Come on in.</p></div><button onClick={()=>{setIntro(false);setOpening(false);}}>Skip opening →</button></div>}{intro&&!room&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
 
     <div className={`journal-stage ${intro?"stage-waiting":"stage-arrived"} ${opening?"book-opening":"book-ready"}`} inert={intro||undefined}>
       <MusicPlayer />
@@ -208,5 +209,7 @@ function InsideChapters(){return <>
  </Spread>
  </>;}
 function CreativeNotebook(){const [selected,setSelected]=useState(0);const reel=creatives[selected];return <><span className="folio">EXPERIMENT LOG / {String(selected+1).padStart(2,'0')}</span><div className="creative-tabs" role="group" aria-label="Choose creative">{creatives.map((r,i)=><button key={r.id} aria-pressed={selected===i} onClick={()=>setSelected(i)}>0{i+1}</button>)}</div><h3 className="project-title">{reel.hook}</h3><div className="creative-body">{reel.video?<video key={reel.video} src={reel.video} controls playsInline preload="none" aria-label={reel.hook}/>:<Placeholder portrait label="Vertical reel video"/>}<div><span className="folio">HYPOTHESIS</span><p>{reel.hypothesis}</p><span className="folio">AUDIENCE & ANGLE</span><p>{reel.audience}</p>{reel.url?<a href={reel.url} target="_blank" rel="noreferrer">Original reel ↗</a>:<span className="pending-link">[Original reel link ↗]</span>}</div></div><dl className="metrics">{Object.entries(reel.metrics).map(([key,value])=><div key={key}><dd>{value??'—'}</dd><dt>{key}</dt></div>)}</dl><div className="memo-block"><span className="folio">WHAT I LEARNED</span><p>{reel.learning}</p></div></>;}
+
+
 
 
