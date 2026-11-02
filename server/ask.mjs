@@ -12,7 +12,7 @@ export function retrieve(question, markdown) {
   if (!entries.length) return {answer:"That isn’t covered in Aryan’s notebook yet. Try asking about Wave, Linkrunner, Zyra, Nebula or his Wispr Flow work.",page:null};
   return entries[0];
 }
-export async function askMiddleware(req,res,next) {
+export async function askMiddleware(req,res,next,loadKnowledge=()=>readFile(knowledgeUrl,'utf8')) {
   if(req.url.split('?')[0]!=='/api/ask')return next();
   const json=(status,error)=>{res.writeHead(status,{'Content-Type':'application/json','Cache-Control':'no-store'});res.end(JSON.stringify({error}));};
   if(req.method!=='POST')return json(405,'Please submit a question.');
@@ -26,7 +26,7 @@ export async function askMiddleware(req,res,next) {
     for await(const chunk of req){raw+=chunk;if(Buffer.byteLength(raw)>8192)return json(413,'Please keep your question under 1,000 characters.');}
     const question=JSON.parse(raw).question;
     if(typeof question!=='string'||!question.trim()||question.length>1000)return json(400,'Please enter a question of up to 1,000 characters.');
-    const knowledge=await readFile(knowledgeUrl,'utf8');
+    const knowledge=await loadKnowledge();
     const match=retrieve(question,knowledge);
     let answer=match.answer,mode='notebook';
     if(process.env.OPENAI_API_KEY&&process.env.OPENAI_MODEL){

@@ -1,18 +1,18 @@
-# Aryan â€” The Passenger's Journal
+# Aryan × Wispr Flow
 
-Home-screen visual prototype. React + Vite, local fonts, real HTML/CSS notebook, layered train imagery and a draggable photo placeholder. Navigation is intentionally non-functional. No AI, backend or other pages.
+React + Vite portfolio with an animated notebook, room/train scenes, music, and Ask Aryan.
 
-## Run
+## Deploy on Netlify
 
-Install Node.js, then `corepack pnpm install` and `corepack pnpm dev --host 127.0.0.1 --port 4173`.
+Import https://github.com/sgulati-entrepot/aryan-wispr-portfolio and select `main`.
+Leave the base directory empty. The checked-in `netlify.toml` supplies the build command (`pnpm run build:netlify`), publish directory (`dist/client`), function bundle and page-refresh fallback automatically. Node 22 and pnpm are pinned in the repository.
 
-Build: `corepack pnpm build`.
+Ask Aryan works without an API key using grounded notebook matches. For LLM answers, set both `OPENAI_API_KEY` and `OPENAI_MODEL` in Netlify environment variables with Functions scope, then redeploy. Never use a `VITE_` prefix for secrets. Knowledge lives in `content/aryan.md`. The function returns NDJSON; Netlify buffers the response and the frontend reveals words progressively. Rate limiting is best-effort per warm function instance.
 
-## Files
+## Local development
 
-- `src/App.jsx`: scene, notebook, folder navigation, movable photo card.
-- `src/styles.css`: tokens, materials, responsive layout, states.
-- `public/assets/`: source train image, generated cloth scene and paper texture.
-- `qa/`: review screenshots (earlier captures may show earlier iterations).
+Run `pnpm install`, then `pnpm dev --host 127.0.0.1 --port 4173`.
+Run `pnpm run build:netlify` for the production frontend. `pnpm run build` also prepares the separate Sites hosting output.
+Run `node --test tests/*.test.mjs` for endpoint, animation geometry and hosting checks.
 
-Personal copy and portrait remain clearly marked placeholders. Both cards support pointer dragging and arrow-key movement across the viewport. Current background is the clear train and bare wooden table; draped fabric was removed at the user's request. The landscape remains independently layered for later motion.
+Personal details not yet supplied remain marked as placeholders. Browser policies may require a click to start music; microphone dictation is shown only where supported.
