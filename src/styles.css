@@ -581,3 +581,11 @@ button:focus-visible { outline:3px solid var(--forest); outline-offset:6px; }
 .continuous-entrance .book-opening .page--letter { transform:rotateY(180deg); }
 .continuous-entrance .book-opening .letter,.continuous-entrance .book-opening .page-number,.continuous-entrance .book-opening .music-player,.continuous-entrance .book-opening .ask-preview,.continuous-entrance .book-opening .folder,.continuous-entrance .book-opening .page-controls,.continuous-entrance .book-opening .reading-status { opacity:0; }
 .continuous-entrance .book-opening .binding { z-index:30; }
+@media(max-width:700px) {
+ .continuous-entrance .book-opening .chapter--first { perspective:none; }
+ .continuous-entrance .book-opening .chapter--first::before { display:none; }
+ .continuous-entrance .book-opening .page--contents { opacity:0; }
+}
+@media(max-width:700px) {
+ .continuous-entrance .book-opening .binding { bottom:auto; height:calc(var(--entrance-leaf-height) - 84px); }
+}

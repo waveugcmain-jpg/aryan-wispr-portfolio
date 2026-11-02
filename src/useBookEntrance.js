@@ -9,15 +9,20 @@ export function useBookEntrance(deck, enabled, reduced, complete) {
   const ui=[stage.querySelector('.music-player'),stage.querySelector('.ask-preview'),stage.querySelector('.page-controls'),stage.querySelector('.reading-status')];
   const tabs=stage.querySelectorAll('.folder');
   let cancelled=false,skipTween;
+  gsap.set(book,{clearProps:'transform'});
   book.style.transform='none';
-  const bounds=book.getBoundingClientRect(),scale=innerWidth<701?.4:.43;
-  const y=innerHeight*.72-(bounds.top+bounds.height*.5);
-  const x=-bounds.width*.25*scale;
+  const bounds=book.getBoundingClientRect(),mobile=innerWidth<701;
+  const leafHeight=leaf.offsetHeight;
+  const scale=mobile?Math.min(.4,innerHeight*.32/leafHeight):.43;
+  const y=innerHeight*.72-(bounds.top+(mobile?leafHeight:bounds.height)*.5);
+  const x=bounds.width*(mobile?1:-.25)*scale;
+  book.style.setProperty('--entrance-leaf-height',leafHeight+'px');
+  if(mobile)host.style.perspectiveOrigin='50% '+(leafHeight*.5+y)+'px';
   const ctx=gsap.context(()=>{},stage);
   const timeline=gsap.timeline({paused:true,onComplete:()=>{if(cancelled)return;gsap.set([book,leaf,...ink,...ui,...tabs],{clearProps:'transform,opacity,willChange'});complete();}});
   ctx.add(()=>{
-   gsap.set(book,{x,y,scale,rotationX:58,rotationZ:-6,transformOrigin:'50% 50%',willChange:'transform',force3D:true});
-   gsap.set(leaf,{rotationY:180,transformOrigin:'100% 50%',willChange:'transform'});
+   gsap.set(book,{x,y,scale,rotationX:58,rotationZ:-6,transformOrigin:mobile?"50% "+(leafHeight/2)+"px":'50% 50%',willChange:'transform',force3D:true});
+   gsap.set(leaf,{rotationY:mobile?-180:180,transformOrigin:mobile?'0% 50%':'100% 50%',willChange:'transform'});
    gsap.set([...ink,...ui,...tabs],{opacity:0});
    if(reduced){gsap.set([book,leaf],{clearProps:'transform'});timeline.to([...ink,...ui,...tabs],{opacity:1,duration:.3});}
    else {
@@ -32,8 +37,7 @@ export function useBookEntrance(deck, enabled, reduced, complete) {
   const skip=e=>{if(e.type==='keydown'&&['Shift','Control','Alt','Meta'].includes(e.key))return;e.preventDefault();e.stopPropagation();if(skipTween)return;skipTween=gsap.to(timeline,{time:timeline.duration(),duration:.3,ease:'power2.out'});};
   window.addEventListener('pointerdown',skip,{capture:true});window.addEventListener('keydown',skip,{capture:true});window.addEventListener('wheel',skip,{passive:false,capture:true});
   const photo=document.querySelector('.room-scene img');
-  Promise.all([document.fonts.ready,photo?.decode().catch(()=>{})]).then(()=>{if(!cancelled&&!skipTween)timeline.play();});
-  return()=>{cancelled=true;skipTween?.kill();timeline.kill();ctx.revert();book.style.removeProperty("transform");window.removeEventListener('pointerdown',skip,true);window.removeEventListener('keydown',skip,true);window.removeEventListener('wheel',skip,true);};
+  Promise.all([document.fonts.ready,photo?.decode().catch(()=>{})]).then(()=>{if(!cancelled&&!skipTween){const checkpoint=import.meta.env.DEV?new URLSearchParams(location.search).get('entranceFrame'):null;if(checkpoint!==null)timeline.pause(Number(checkpoint)*timeline.duration(),false);else timeline.play();host.dataset.entranceReady='true';}});
+  return()=>{cancelled=true;delete host.dataset.entranceReady;host.style.removeProperty('perspective-origin');skipTween?.kill();timeline.kill();ctx.revert();book.style.removeProperty("transform");window.removeEventListener('pointerdown',skip,true);window.removeEventListener('keydown',skip,true);window.removeEventListener('wheel',skip,true);};
  },[enabled,reduced]);
 }
-

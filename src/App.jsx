@@ -44,19 +44,20 @@ function FolderNavigation({active, go}) {
 export function App() {
   const [room,setRoom]=useState(()=>new URLSearchParams(window.location.search).get('scene')!=='train');
   const [active,setActive]=useState(0);
-  const [reduced,setReduced]=useState(()=>sessionStorage.getItem('portfolio-motion')==='off');
+  const [reduced,setReduced]=useState(()=>{const preference=sessionStorage.getItem('portfolio-motion');return preference ? preference==='off' : window.matchMedia('(prefers-reduced-motion: reduce)').matches;});
   useEffect(()=>{sessionStorage.setItem('portfolio-motion',reduced?'off':'on');},[reduced]);
   const [intro,setIntro]=useState(false);
   const [opening,setOpening]=useState(true);
   const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null), wheelUnlock=useRef(0);
   const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.current.push(id);return id;};
   useEffect(()=>{if(!intro)return;const id=setTimeout(()=>setIntro(false),2600);return()=>clearTimeout(id);},[intro]);
-  useBookEntrance(deck,opening,reduced||window.matchMedia("(prefers-reduced-motion: reduce)").matches,()=>setOpening(false));
+
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
   useLayoutEffect(()=>{
     if(!deck.current)return;
     deck.current.querySelectorAll(':scope > .chapter').forEach((el,i)=>{el.hidden=i!==active;el.inert=i!==active;});
   },[active,intro]);
+  useBookEntrance(deck,opening,reduced,()=>setOpening(false));
   const go=(index)=>{
     if(intro||opening||busy.current||index===active||index<0||index>=sections.length)return;
     const host=deck.current, pages=[...host.querySelectorAll(':scope > .chapter')];
@@ -210,6 +211,7 @@ function InsideChapters(){return <>
  </Spread>
  </>;}
 function CreativeNotebook(){const [selected,setSelected]=useState(0);const reel=creatives[selected];return <><span className="folio">EXPERIMENT LOG / {String(selected+1).padStart(2,'0')}</span><div className="creative-tabs" role="group" aria-label="Choose creative">{creatives.map((r,i)=><button key={r.id} aria-pressed={selected===i} onClick={()=>setSelected(i)}>0{i+1}</button>)}</div><h3 className="project-title">{reel.hook}</h3><div className="creative-body">{reel.video?<video key={reel.video} src={reel.video} controls playsInline preload="none" aria-label={reel.hook}/>:<Placeholder portrait label="Vertical reel video"/>}<div><span className="folio">HYPOTHESIS</span><p>{reel.hypothesis}</p><span className="folio">AUDIENCE & ANGLE</span><p>{reel.audience}</p>{reel.url?<a href={reel.url} target="_blank" rel="noreferrer">Original reel ↗</a>:<span className="pending-link">[Original reel link ↗]</span>}</div></div><dl className="metrics">{Object.entries(reel.metrics).map(([key,value])=><div key={key}><dd>{value??'—'}</dd><dt>{key}</dt></div>)}</dl><div className="memo-block"><span className="folio">WHAT I LEARNED</span><p>{reel.learning}</p></div></>;}
+
 
 
 
