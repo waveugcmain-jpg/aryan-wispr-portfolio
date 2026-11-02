@@ -1,3 +1,4 @@
+import { useBookEntrance } from './useBookEntrance.js';
 import { RoomScene } from './RoomScene.jsx';
 import { MusicPlayer } from './MusicPlayer.jsx';
 import { curveSheet } from './pageTurn.js';
@@ -45,12 +46,12 @@ export function App() {
   const [active,setActive]=useState(0);
   const [reduced,setReduced]=useState(()=>sessionStorage.getItem('portfolio-motion')==='off');
   useEffect(()=>{sessionStorage.setItem('portfolio-motion',reduced?'off':'on');},[reduced]);
-  const [intro,setIntro]=useState(()=>sessionStorage.getItem('portfolio-motion')!=='off');
+  const [intro,setIntro]=useState(false);
   const [opening,setOpening]=useState(true);
   const deck=useRef(null), busy=useRef(false), timers=useRef([]), touch=useRef(null), wheelUnlock=useRef(0);
   const later=(fn,ms)=>{const id=setTimeout(fn,ms);timers.current.push(id);return id;};
   useEffect(()=>{if(!intro)return;const id=setTimeout(()=>setIntro(false),2600);return()=>clearTimeout(id);},[intro]);
-  useEffect(()=>{if(!intro){const id=setTimeout(()=>setOpening(false),reduced?0:4500);return()=>clearTimeout(id);}},[intro,reduced]);
+  useBookEntrance(deck,opening,reduced||window.matchMedia("(prefers-reduced-motion: reduce)").matches,()=>setOpening(false));
   useEffect(()=>()=>timers.current.forEach(clearTimeout),[]);
   useLayoutEffect(()=>{
     if(!deck.current)return;
@@ -102,9 +103,9 @@ export function App() {
     return()=>{window.removeEventListener('wheel',wheel);window.removeEventListener('keydown',key);};
   },[active,intro,opening,reduced]);
 
-  return <main className={`home ${room?"room-version":"train-version"} ${reduced?"motion-reduced":"motion-full"}`}>
+  return <main className={`home continuous-entrance ${room?"room-version":"train-version"} ${reduced?"motion-reduced":"motion-full"}`}>
     {room?<RoomScene/>:<TrainScene />}
-    <div className="scene-tools"><button onClick={()=>{setRoom(!room);setIntro(false);const url=new URL(window.location.href);url.searchParams.set("scene",room?"train":"room");window.history.replaceState(null,"",url);}}>{room?"Train version ↗":"Room version ↗"}</button><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;window.scrollTo({top:0,behavior:"instant"});setReduced(false);setActive(0);setOpening(true);setIntro(true);}}>Replay opening</button></div>
+    <div className="scene-tools"><button onClick={()=>{setRoom(!room);setIntro(false);const url=new URL(window.location.href);url.searchParams.set("scene",room?"train":"room");window.history.replaceState(null,"",url);}}>{room?"Train version ↗":"Room version ↗"}</button><button onClick={()=>{setReduced(!reduced);if(!reduced){setIntro(false);setOpening(false);}}} aria-pressed={!reduced}>Motion {reduced?'off':'on'}</button><button onClick={()=>{if(busy.current)return;window.scrollTo({top:0,behavior:"instant"});setReduced(false);setActive(0);setOpening(true);setIntro(false);}}>Replay opening</button></div>
     {intro&&room&&<div className="room-arrival"><img src="/assets/founder-room.webp" alt=""/><div className="room-arrival__caption"><span>ARYAN × WISPR FLOW</span><p>Come on in.</p></div><button onClick={()=>{setIntro(false);setOpening(false);}}>Skip opening →</button></div>}{intro&&!room&&<div className="train-intro"><div className="train-intro__view"><TrainScene/></div><div className="train-intro__caption"><span>THE PASSENGER’S JOURNAL</span><p>aryan × wispr flow</p></div><button onClick={()=>setIntro(false)}>Skip intro →</button></div>}
 
     <div className={`journal-stage ${intro?"stage-waiting":"stage-arrived"} ${opening?"book-opening":"book-ready"}`} inert={intro||undefined}>
@@ -113,7 +114,7 @@ export function App() {
       <FolderNavigation active={active} go={go} />
       <div className="book-deck" ref={deck} key={intro?'waiting':'arrived'} onTouchStart={e=>{touch.current={x:e.touches[0].clientX,y:e.touches[0].clientY};}} onTouchEnd={e=>{if(!touch.current)return;const dx=e.changedTouches[0].clientX-touch.current.x,dy=e.changedTouches[0].clientY-touch.current.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)go(active+(dx<0?1:-1));touch.current=null;}}>
       <article id="chapter-1" data-chapter="0" className="notebook chapter chapter--first" aria-label="Aryan's portfolio notebook">
-        <section className="page page--letter" aria-label="Introduction">
+        <section className="page page--letter" aria-label="Introduction"><div className="entrance-cover" aria-hidden="true">aryan × wispr flow</div>
           <div className="letter letter--final">
             <h1 className="letter-opening">everything on this page, i <mark className="highlight-purple">said out loud</mark> and built using <mark className="highlight-green">wispr flow.</mark></h1>
             <p>but this opening letter was the hardest part. i wanted my application to be cinematic, the one that makes you say "wow".</p>
@@ -209,6 +210,7 @@ function InsideChapters(){return <>
  </Spread>
  </>;}
 function CreativeNotebook(){const [selected,setSelected]=useState(0);const reel=creatives[selected];return <><span className="folio">EXPERIMENT LOG / {String(selected+1).padStart(2,'0')}</span><div className="creative-tabs" role="group" aria-label="Choose creative">{creatives.map((r,i)=><button key={r.id} aria-pressed={selected===i} onClick={()=>setSelected(i)}>0{i+1}</button>)}</div><h3 className="project-title">{reel.hook}</h3><div className="creative-body">{reel.video?<video key={reel.video} src={reel.video} controls playsInline preload="none" aria-label={reel.hook}/>:<Placeholder portrait label="Vertical reel video"/>}<div><span className="folio">HYPOTHESIS</span><p>{reel.hypothesis}</p><span className="folio">AUDIENCE & ANGLE</span><p>{reel.audience}</p>{reel.url?<a href={reel.url} target="_blank" rel="noreferrer">Original reel ↗</a>:<span className="pending-link">[Original reel link ↗]</span>}</div></div><dl className="metrics">{Object.entries(reel.metrics).map(([key,value])=><div key={key}><dd>{value??'—'}</dd><dt>{key}</dt></div>)}</dl><div className="memo-block"><span className="folio">WHAT I LEARNED</span><p>{reel.learning}</p></div></>;}
+
 
 
 
